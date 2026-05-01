@@ -1,0 +1,33 @@
+---
+interface Props {
+  palette?: 'arriesgado' | 'paper' | 'bone' | 'linen';
+}
+
+const { palette = 'arriesgado' } = Astro.props;
+---
+
+<div class="split">
+  <div class="theme-pane" data-theme="light" data-palette={palette}>
+    <span class="theme-tag">Light</span>
+    <div class="pane-body">
+      <slot />
+    </div>
+  </div>
+  <div class="theme-pane" data-theme="dark" data-palette="arriesgado">
+    <span class="theme-tag">Dark</span>
+    <div class="pane-body">
+      <slot />
+    </div>
+  </div>
+</div>
+
+<style>
+  .split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-6);
+  }
+  @media (max-width: 960px) {
+    .split { grid-template-columns: 1fr; }
+  }
+</style>

@@ -1,0 +1,88 @@
+---
+import '@styles/page.css';
+---
+
+<footer class="foot" aria-label="Pie de página / Footer">
+  <div class="container">
+    <div class="foot-grid">
+
+      <!-- Brand block -->
+      <div class="foot-col foot-brand">
+        <a href="/" aria-label="Coffee Code — inicio / home">
+          <svg
+            class="foot-wordmark"
+            viewBox="0 0 290 44"
+            fill="none"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <text
+              x="8" y="32"
+              font-family="'IBM Plex Mono', ui-monospace, monospace"
+              font-size="28"
+              font-weight="500"
+            ><tspan fill="var(--brace)">{'{'}</tspan><tspan fill="var(--coffee)"> coffee</tspan><tspan fill="var(--syntax)">:</tspan><tspan fill="var(--code)"> code </tspan><tspan fill="var(--brace)">{'}'}</tspan></text>
+          </svg>
+        </a>
+        <p class="foot-tagline">
+          <span class="lang-es">Software studio. Del suelo a producción.</span>
+          <span class="lang-en">Software studio. Ground to production.</span>
+        </p>
+        <p class="foot-copy">&copy; {new Date().getFullYear()} Coffee Code</p>
+      </div>
+
+      <!-- Studio links -->
+      <nav class="foot-col" aria-label="Secciones del sitio / Site sections">
+        <h4>
+          <span class="lang-es">Estudio</span>
+          <span class="lang-en">Studio</span>
+        </h4>
+        <a href="#quienes-somos">
+          <span class="lang-es">Nosotros</span>
+          <span class="lang-en">About</span>
+        </a>
+        <a href="#filosofia">
+          <span class="lang-es">Filosofía</span>
+          <span class="lang-en">Philosophy</span>
+        </a>
+        <a href="#precios">
+          <span class="lang-es">Precios</span>
+          <span class="lang-en">Pricing</span>
+        </a>
+        <a href="#contacto">
+          <span class="lang-es">Contacto</span>
+          <span class="lang-en">Contact</span>
+        </a>
+      </nav>
+
+    </div>
+
+    <div class="foot-bottom">
+      <span>coffeecode.com.mx</span>
+      <span>Nogales, Sonora, México</span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .foot-wordmark {
+    height: 24px;
+    width: auto;
+    display: block;
+    margin-bottom: var(--space-4);
+  }
+
+  .foot-tagline {
+    font: 400 14px/1.6 var(--font-sans);
+    color: var(--text-secondary);
+    margin: 0 0 var(--space-4);
+    max-width: 30ch;
+  }
+
+  .foot-copy {
+    font: 400 12px/1 var(--font-mono);
+    color: var(--text-tertiary);
+    margin: 0;
+  }
+
+</style>

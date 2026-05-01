@@ -1,0 +1,221 @@
+/* ─────────────────────────────────────────────
+   Coffee Code — Scope Ladder + Pricing styles
+   Ported from reference/pricing.css
+   ───────────────────────────────────────────── */
+
+/* ─── Scope ladder ────────────────────────── */
+.scope-ladder {
+  display: grid;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--bg-elevated);
+}
+.scope-rung {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr) 160px;
+  gap: var(--space-6);
+  padding: var(--space-6) var(--space-8);
+  align-items: center;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.scope-rung:last-child { border-bottom: 0; }
+.scope-tag {
+  font: 500 13px/1 var(--font-mono);
+  color: var(--coffee);
+  letter-spacing: 0.06em;
+  background: color-mix(in oklab, var(--coffee) 8%, var(--bg-surface));
+  border: 1px solid color-mix(in oklab, var(--coffee) 30%, var(--border-default));
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  text-align: center;
+}
+.scope-name {
+  font: 500 17px/1.3 var(--font-sans);
+  color: var(--text-primary);
+  letter-spacing: -0.005em;
+  margin-bottom: 4px;
+}
+.scope-desc {
+  font: 400 14px/1.55 var(--font-sans);
+  color: var(--text-secondary);
+  margin: 0;
+  text-wrap: pretty;
+}
+.scope-meta {
+  font: 400 12px/1 var(--font-mono);
+  color: var(--text-tertiary);
+  text-align: right;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* ─── Pricing sub-labels ──────────────────── */
+.pricing-sublabel {
+  font: 500 11px/1 var(--font-mono);
+  color: var(--text-tertiary);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 0 0 var(--space-5);
+}
+.pricing-sublabel--second {
+  margin-top: var(--space-16);
+}
+
+/* ─── Pricing grid (landing tiers) ───────── */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-5);
+}
+
+@media (min-width: 720px) {
+  .pricing-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (min-width: 1100px) {
+  .pricing-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+/* ─── Services grid (custom dev) ─────────── */
+.services-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-5);
+}
+
+@media (min-width: 720px) {
+  .services-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (min-width: 1100px) {
+  .services-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+/* ─── Price card ──────────────────────────── */
+.price-card {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  position: relative;
+  transition:
+    border-color var(--dur-base) var(--ease-out),
+    transform var(--dur-base) var(--ease-out);
+}
+.price-card.is-featured {
+  border-color: color-mix(in oklab, var(--coffee) 50%, var(--border-default));
+  background: color-mix(in oklab, var(--coffee) 3%, var(--bg-elevated));
+}
+.price-badge {
+  position: absolute;
+  top: -10px; left: var(--space-6);
+  background: var(--coffee);
+  color: #FFFFFF;
+  font: 500 11px/1 var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+}
+[data-theme="dark"] .price-badge { color: #1A1410; }
+.price-name {
+  font: 600 22px/1.2 var(--font-sans);
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+.price-sub {
+  font: 400 13px/1.4 var(--font-mono);
+  color: var(--text-tertiary);
+  margin-top: 4px;
+}
+.price-amount {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-bottom: var(--space-5);
+  border-bottom: 1px dashed var(--border-default);
+}
+.price-num {
+  font: 500 32px/1.1 var(--font-sans);
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+.price-note {
+  font: 400 12px/1.4 var(--font-mono);
+  color: var(--text-tertiary);
+}
+.price-list {
+  list-style: none;
+  margin: 0; padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  flex: 1;
+}
+.price-list li {
+  display: grid;
+  grid-template-columns: 16px 1fr;
+  gap: var(--space-3);
+  font: 400 14px/1.5 var(--font-sans);
+  color: var(--text-secondary);
+  align-items: start;
+}
+.price-list li svg { color: var(--code); margin-top: 4px; }
+.price-cta { width: 100%; justify-content: center; }
+.price-custom-body {
+  font: 400 14px/1.6 var(--font-sans);
+  color: var(--text-secondary);
+  margin: 0;
+  text-wrap: pretty;
+}
+
+/* ─── Service cards (custom dev) ─────────── */
+.service-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  transition:
+    border-color var(--dur-base) var(--ease-out),
+    transform var(--dur-base) var(--ease-out);
+}
+.service-name {
+  font: 500 22px/1.2 var(--font-sans);
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+.service-tagline {
+  font: 400 13px/1.4 var(--font-mono);
+  color: var(--text-tertiary);
+  margin-top: 4px;
+}
+.service-body {
+  font: 400 14px/1.6 var(--font-sans);
+  color: var(--text-secondary);
+  margin: 0;
+  text-wrap: pretty;
+  flex: 1;
+}
+.service-cta { width: 100%; justify-content: center; }
+
+/* ─── Responsive ──────────────────────────── */
+@media (max-width: 720px) {
+  .scope-rung {
+    grid-template-columns: 56px 1fr;
+    gap: var(--space-4);
+    padding: var(--space-5);
+  }
+  .scope-meta { grid-column: 2; text-align: left; }
+
+  .price-card,
+  .service-card {
+    padding: var(--space-6);
+  }
+}

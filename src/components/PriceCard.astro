@@ -1,0 +1,115 @@
+---
+import '@styles/pricing.css';
+
+interface Props {
+  name: string;
+  sub: string;
+  subEn?: string;
+  price: string;
+  priceEn?: string;
+  priceNote: string;
+  priceNoteEn?: string;
+  featured?: boolean;
+  isCustom?: boolean;
+  cta: string;
+  ctaEn?: string;
+  body?: string;
+  bodyEn?: string;
+  features: string[];
+  featuresEn?: string[];
+}
+
+const {
+  name, sub, subEn, price, priceEn, priceNote, priceNoteEn,
+  featured = false, isCustom = false,
+  cta, ctaEn, body, bodyEn, features, featuresEn,
+} = Astro.props;
+---
+
+<div class:list={['price-card', { 'is-featured': featured, 'price-custom': isCustom }]}>
+  {featured && (
+    <span class="price-badge">
+      <span class="lang-es">Más elegido</span>
+      <span class="lang-en">Most popular</span>
+    </span>
+  )}
+
+  <div>
+    <p class="price-name">{name}</p>
+    <p class="price-sub">
+      <span class="lang-es">{sub}</span>
+      {subEn && <span class="lang-en">{subEn}</span>}
+    </p>
+  </div>
+
+  <div class="price-amount">
+    <span class="price-num">
+      {priceEn ? (
+        <>
+          <span class="lang-es">{price}</span>
+          <span class="lang-en">{priceEn}</span>
+        </>
+      ) : price}
+    </span>
+    <span class="price-note">
+      {priceNoteEn ? (
+        <>
+          <span class="lang-es">{priceNote}</span>
+          <span class="lang-en">{priceNoteEn}</span>
+        </>
+      ) : priceNote}
+    </span>
+  </div>
+
+  {isCustom && (body || bodyEn) && (
+    <p class="price-custom-body">
+      {bodyEn ? (
+        <>
+          <span class="lang-es">{body}</span>
+          <span class="lang-en">{bodyEn}</span>
+        </>
+      ) : body}
+    </p>
+  )}
+
+  <ul class="price-list">
+    {featuresEn ? (
+      <>
+        {features.map((f) => (
+          <li class="lang-es">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M13.5 4.5L6.5 11.5L3 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            {f}
+          </li>
+        ))}
+        {featuresEn.map((f) => (
+          <li class="lang-en">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M13.5 4.5L6.5 11.5L3 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            {f}
+          </li>
+        ))}
+      </>
+    ) : (
+      features.map((f) => (
+        <li>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M13.5 4.5L6.5 11.5L3 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          {f}
+        </li>
+      ))
+    )}
+  </ul>
+
+  <a href="#contacto" class:list={['btn', featured ? 'btn-coffee' : 'btn-secondary', 'price-cta']}>
+    {ctaEn ? (
+      <>
+        <span class="lang-es">{cta}</span>
+        <span class="lang-en">{ctaEn}</span>
+      </>
+    ) : cta}
+  </a>
+</div>

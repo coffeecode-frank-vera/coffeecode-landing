@@ -1,0 +1,71 @@
+---
+import '@styles/pricing.css';
+import SectionHead from './SectionHead.astro';
+
+const tiers = [
+  {
+    tag: 'L0',
+    nameEs: 'Landing & marketing sites',
+    nameEn: 'Landing & marketing sites',
+    descEs: 'One-pagers, multi-page sites, microsites de campaña. Predecibles, con pricing fijo.',
+    descEn: 'One-pagers, multi-page sites, campaign microsites. Predictable scope, fixed pricing.',
+    meta: 'days · weeks',
+  },
+  {
+    tag: 'L1',
+    nameEs: 'Web apps & e-commerce',
+    nameEn: 'Web apps & e-commerce',
+    descEs: 'Tiendas, dashboards de cliente, portales con auth, checkout y CMS. Custom según alcance.',
+    descEn: 'Stores, client dashboards, auth portals, checkout and CMS. Custom-scoped.',
+    meta: 'weeks · months',
+  },
+  {
+    tag: 'L2',
+    nameEs: 'Plataformas SaaS multi-tenant',
+    nameEn: 'Multi-tenant SaaS platforms',
+    descEs: 'Apps con billing, roles, integraciones, observability, escalamiento real.',
+    descEn: 'Apps with billing, roles, integrations, observability, real scalability.',
+    meta: 'months · quarters',
+  },
+  {
+    tag: 'L3',
+    nameEs: 'Sistemas empresariales',
+    nameEn: 'Enterprise systems',
+    descEs: 'Backoffice, ERPs sectoriales, integraciones con sistemas legados, alta disponibilidad y compliance.',
+    descEn: 'Backoffice, sector ERPs, legacy integrations, high availability and compliance.',
+    meta: 'quarters · years',
+  },
+];
+---
+
+<section id="como-funciona" class="section">
+  <div class="container">
+    <SectionHead
+      num="§01"
+      label="Scope"
+      title="¿Qué construimos?"
+      titleEn="What we build"
+      lede="Cuatro niveles de alcance, cada uno con su propio stack de decisiones, riesgo y horizonte de tiempo."
+      ledeEn="Four scope levels, each with its own decision stack, risk profile, and time horizon."
+    />
+
+    <div class="scope-ladder">
+      {tiers.map((tier) => (
+        <div class="scope-rung">
+          <span class="scope-tag">{tier.tag}</span>
+          <div>
+            <p class="scope-name">
+              <span class="lang-es">{tier.nameEs}</span>
+              <span class="lang-en">{tier.nameEn}</span>
+            </p>
+            <p class="scope-desc">
+              <span class="lang-es">{tier.descEs}</span>
+              <span class="lang-en">{tier.descEn}</span>
+            </p>
+          </div>
+          <span class="scope-meta">{tier.meta}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,91 @@
+---
+import '@styles/page.css';
+---
+
+<section id="inicio" class="hero" aria-labelledby="hero-headline">
+  <div class="container">
+    <div class="hero-grid">
+
+      <!-- Left: statement + CTAs -->
+      <div class="hero-left">
+
+        <!-- Wordmark: mobile only — nav shows the mark (cc symbol) on mobile -->
+        <svg
+          class="hero-wordmark"
+          viewBox="0 0 290 44"
+          fill="none"
+          aria-label="Coffee Code"
+          role="img"
+        >
+          <text
+            x="8" y="32"
+            font-family="'IBM Plex Mono', ui-monospace, monospace"
+            font-size="28"
+            font-weight="500"
+          ><tspan fill="var(--brace)">{'{'}</tspan><tspan fill="var(--coffee)"> coffee</tspan><tspan fill="var(--syntax)">:</tspan><tspan fill="var(--code)"> code </tspan><tspan fill="var(--brace)">{'}'}</tspan></text>
+        </svg>
+
+        <p class="hero-eyebrow">
+          <span class="dot" aria-hidden="true"></span>
+          Software studio · Nogales, Sonora, México
+        </p>
+
+        <h1 id="hero-headline">
+          <span class="lang-es">Del suelo a producción.</span>
+          <span class="lang-en">Ground to production.</span>
+        </h1>
+
+        <p class="hero-sub">
+          <span class="lang-es">Construimos software de principio a fin — arquitectura, build, deploy. Sin handoffs, sin equipos rotativos. El criterio está incluido.</span>
+          <span class="lang-en">We build software start to finish — architecture, build, deploy. No handoffs, no rotating teams. Judgment is part of the service.</span>
+        </p>
+
+        <div class="hero-cta">
+          <a href="#contacto" class="btn btn-coffee">
+            <span class="lang-es">Hablemos del proyecto</span>
+            <span class="lang-en">Talk about your project</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Right: studio metadata -->
+      <aside class="hero-meta" aria-label="Datos del estudio / Studio data">
+        <div class="hero-meta-row">
+          <span class="hero-meta-label">lang</span>
+          <span class="hero-meta-val">PHP · C# · JS · Dart · Java</span>
+        </div>
+        <div class="hero-meta-row">
+          <span class="hero-meta-label">fw</span>
+          <span class="hero-meta-val">Flutter · Angular · Astro · .NET · React · Vue · Laravel</span>
+        </div>
+        <div class="hero-meta-row">
+          <span class="hero-meta-label">infra</span>
+          <span class="hero-meta-val">AWS · Azure · DigitalOcean · K8s</span>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Desktop: nav already shows the wordmark */
+  .hero-wordmark {
+    display: none;
+  }
+
+  /* Mobile: wordmark + eyebrow centered; h1/sub/cta stay left-aligned for readability */
+  @media (max-width: 719px) {
+    .hero-wordmark {
+      display: block;
+      height: 32px;
+      width: auto;
+      margin-inline: auto;
+      margin-bottom: var(--space-6);
+    }
+
+    .hero-eyebrow {
+      justify-content: center;
+    }
+  }
+</style>

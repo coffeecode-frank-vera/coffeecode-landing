@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 180" fill="none">
+  
+  <defs>
+    
+  </defs>
+
+  
+  <g transform="translate(40, 10)">
+    <path d="M 50 25 Q 40 25 40 35 L 40 46 Q 40 50 33 50 Q 40 50 40 54 L 40 65 Q 40 75 50 75" stroke="#B8AC9E" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"></path>
+    <path d="M 101.07 30.85 A 25 25 0 1 0 101.07 69.15" stroke="#ED8632" stroke-width="5.5" stroke-linecap="round"></path>
+    <circle cx="120" cy="35" r="4.5" fill="#6B6359"></circle>
+    <circle cx="120" cy="65" r="4.5" fill="#6B6359"></circle>
+    <path d="M 171.07 30.85 A 25 25 0 1 0 171.07 69.15" stroke="#3FBA70" stroke-width="5.5" stroke-linecap="round"></path>
+    <path d="M 190 25 Q 200 25 200 35 L 200 46 Q 200 50 207 50 Q 200 50 200 54 L 200 65 Q 200 75 190 75" stroke="#B8AC9E" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"></path>
+  </g>
+
+  
+  <text class="cc-wm" x="160" y="148" text-anchor="middle">
+    <tspan fill="#B8AC9E">{</tspan><tspan fill="#6B6359"> </tspan><tspan fill="#ED8632">coffee</tspan><tspan fill="#6B6359">:</tspan><tspan fill="#6B6359"> </tspan><tspan fill="#3FBA70">code</tspan><tspan fill="#6B6359"> </tspan><tspan fill="#B8AC9E">}</tspan>
+  </text>
+</svg>

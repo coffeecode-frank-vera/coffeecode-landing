@@ -1,0 +1,38 @@
+---
+interface Props {
+  num: string;
+  label: string;
+  title: string;
+  titleEn?: string;
+  lede?: string;
+  ledeEn?: string;
+}
+
+const { num, label, title, titleEn, lede, ledeEn } = Astro.props;
+---
+
+<div class="section-head">
+  <div>
+    <p class="section-num"><strong>{num}</strong> — {label}</p>
+  </div>
+  <div>
+    <h2 class="section-title">
+      {titleEn ? (
+        <>
+          <span class="lang-es">{title}</span>
+          <span class="lang-en">{titleEn}</span>
+        </>
+      ) : title}
+    </h2>
+    {lede && (
+      <p class="section-lede">
+        {ledeEn ? (
+          <>
+            <span class="lang-es">{lede}</span>
+            <span class="lang-en">{ledeEn}</span>
+          </>
+        ) : lede}
+      </p>
+    )}
+  </div>
+</div>

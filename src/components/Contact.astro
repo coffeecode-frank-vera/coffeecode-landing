@@ -1,0 +1,676 @@
+---
+import SectionHead from './SectionHead.astro';
+---
+
+<section id="contacto" class="section" data-section>
+  <div class="container">
+    <SectionHead
+      num="§04"
+      label="Contacto"
+      title="El siguiente paso es una conversación."
+      titleEn="The next step is a conversation."
+      lede="Comparte los detalles básicos del proyecto y acordamos un horario. Sin formularios de pre-calificación, sin respuestas automáticas."
+      ledeEn="Share the basic details and we'll agree on a time. No qualification gates, no automated replies."
+    />
+
+    <div class="contact-layout">
+      <!-- Left column: context + availability -->
+      <div class="contact-aside">
+        <p class="contact-intro">
+          <span class="contact-intro-dot" aria-hidden="true"></span>
+          <span class="lang-es">La información que envíes aquí define la agenda de la primera llamada.</span>
+          <span class="lang-en">What you send here sets the agenda for the first call.</span>
+        </p>
+
+        <div class="contact-meta-card">
+          <div class="contact-meta">
+            <div class="contact-meta-row">
+              <span class="contact-meta-label">
+                <span class="lang-es">Respuesta</span>
+                <span class="lang-en">Response</span>
+              </span>
+              <span class="contact-meta-val">
+                <span class="lang-es">Antes del siguiente día hábil</span>
+                <span class="lang-en">Before the next business day</span>
+              </span>
+            </div>
+            <div class="contact-meta-row">
+              <span class="contact-meta-label">
+                <span class="lang-es">Zona horaria</span>
+                <span class="lang-en">Time zone</span>
+              </span>
+              <span class="contact-meta-val">
+                <span class="lang-es">Sonora (UTC−7)</span>
+                <span class="lang-en">Sonora (UTC−7)</span>
+              </span>
+            </div>
+            <div class="contact-meta-row">
+              <span class="contact-meta-label">
+                <span class="lang-es">Correo</span>
+                <span class="lang-en">Email</span>
+              </span>
+              <span class="contact-meta-val">
+                <a href="mailto:contact@coffeecode.com.mx" class="contact-meta-email">contact@coffeecode.com.mx</a>
+              </span>
+            </div>
+            <div class="contact-meta-row">
+              <span class="contact-meta-label">WhatsApp</span>
+              <span class="contact-meta-val">
+                <a href="https://wa.me/+526311484433" target="_blank" rel="noopener noreferrer" class="contact-meta-email">+52 631 148 4433</a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right column: the form -->
+      <div class="contact-form-col">
+        <div class="contact-card">
+          <!-- Error banner -->
+          <div id="contact-error" class="contact-error" role="alert" aria-live="polite" hidden>
+            <p>
+              <span class="lang-es">No se pudo enviar el formulario. Escríbenos directamente a <a href="mailto:contact@coffeecode.com.mx">contact@coffeecode.com.mx</a> con los mismos datos.</span>
+              <span class="lang-en">The form didn't go through. Write to us directly at <a href="mailto:contact@coffeecode.com.mx">contact@coffeecode.com.mx</a> with the same details.</span>
+            </p>
+          </div>
+
+          <form
+            id="contact-form"
+            action="https://api.web3forms.com/submit"
+            method="POST"
+            class="contact-form"
+            novalidate
+          >
+            <input type="hidden" name="access_key" value="560ee99a-23d5-4e20-9235-029aae5930f9" />
+            <input type="hidden" name="subject" value="Nueva solicitud — Coffee Code" />
+            <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" aria-hidden="true" />
+
+            <!-- 1. Nombre completo -->
+            <div class="form-group">
+              <label class="form-label" for="contact-name">
+                <span class="lang-es">Nombre completo</span>
+                <span class="lang-en">Full name</span>
+              </label>
+              <input
+                id="contact-name"
+                type="text"
+                name="name"
+                class="input"
+                required
+                aria-required="true"
+                data-placeholder-es="Tu nombre tal como aparece en tus comunicaciones"
+                data-placeholder-en="Your name as it appears in your communications"
+                placeholder="Tu nombre tal como aparece en tus comunicaciones"
+                autocomplete="name"
+              />
+            </div>
+
+            <!-- 2. Contacto -->
+            <div class="form-group">
+              <label class="form-label" for="contact-contact">
+                <span class="lang-es">Contacto</span>
+                <span class="lang-en">Contact</span>
+              </label>
+              <input
+                id="contact-contact"
+                type="text"
+                name="contact"
+                class="input"
+                required
+                aria-required="true"
+                data-placeholder-es="Correo electrónico o número de teléfono"
+                data-placeholder-en="Email address or phone number"
+                placeholder="Correo electrónico o número de teléfono"
+                autocomplete="email"
+              />
+              <p class="form-helper">
+                <span class="lang-es">Escribe el canal por el que prefieres recibir la confirmación.</span>
+                <span class="lang-en">Use whichever channel you want us to reply on.</span>
+              </p>
+            </div>
+
+            <!-- 3. Días disponibles -->
+            <div class="form-group">
+              <fieldset class="days-fieldset">
+                <legend class="form-label">
+                  <span class="lang-es">Días disponibles</span>
+                  <span class="lang-en">Available days</span>
+                </legend>
+                <p class="form-helper days-helper">
+                  <span class="lang-es">Selecciona todos los que aplican.</span>
+                  <span class="lang-en">Select all that apply.</span>
+                </p>
+                <div class="days-pills" role="group">
+                  <label class="day-pill">
+                    <input type="checkbox" name="days[]" value="lunes" />
+                    <span class="lang-es">Lunes</span>
+                    <span class="lang-en">Monday</span>
+                  </label>
+                  <label class="day-pill">
+                    <input type="checkbox" name="days[]" value="martes" />
+                    <span class="lang-es">Martes</span>
+                    <span class="lang-en">Tuesday</span>
+                  </label>
+                  <label class="day-pill">
+                    <input type="checkbox" name="days[]" value="miercoles" />
+                    <span class="lang-es">Miércoles</span>
+                    <span class="lang-en">Wednesday</span>
+                  </label>
+                  <label class="day-pill">
+                    <input type="checkbox" name="days[]" value="jueves" />
+                    <span class="lang-es">Jueves</span>
+                    <span class="lang-en">Thursday</span>
+                  </label>
+                  <label class="day-pill">
+                    <input type="checkbox" name="days[]" value="viernes" />
+                    <span class="lang-es">Viernes</span>
+                    <span class="lang-en">Friday</span>
+                  </label>
+                  <label class="day-pill">
+                    <input type="checkbox" name="days[]" value="sabado" />
+                    <span class="lang-es">Sábado</span>
+                    <span class="lang-en">Saturday</span>
+                  </label>
+                </div>
+              </fieldset>
+            </div>
+
+            <!-- 4. Horario preferido -->
+            <div class="form-group">
+              <label class="form-label" for="contact-time">
+                <span class="lang-es">Horario preferido</span>
+                <span class="lang-en">Preferred time</span>
+              </label>
+              <select
+                id="contact-time"
+                name="time"
+                class="input"
+                required
+                aria-required="true"
+              >
+                <option value="" disabled selected>Selecciona un horario</option>
+                <option value="manana" data-label-es="Mañana (8–12 h)" data-label-en="Morning (8–12)">Mañana (8–12 h)</option>
+                <option value="tarde" data-label-es="Tarde (12–17 h)" data-label-en="Afternoon (12–17)">Tarde (12–17 h)</option>
+                <option value="tarde-noche" data-label-es="Tarde–noche (17–20 h)" data-label-en="Evening (17–20)">Tarde–noche (17–20 h)</option>
+              </select>
+            </div>
+
+            <!-- 5. Proyecto o servicio de interés -->
+            <div class="form-group">
+              <label class="form-label" for="contact-project">
+                <span class="lang-es">Proyecto o servicio de interés</span>
+                <span class="lang-en">Project or service</span>
+              </label>
+              <textarea
+                id="contact-project"
+                name="project"
+                class="input contact-textarea"
+                rows="5"
+                data-placeholder-es="Describe el proyecto — alcance aproximado, stack existente si lo hay, contexto relevante — o indica el paquete que seleccionaste en la sección de precios."
+                data-placeholder-en="Describe the project — approximate scope, existing stack if any, relevant context — or note the package you selected in the pricing section."
+                placeholder="Describe el proyecto — alcance aproximado, stack existente si lo hay, contexto relevante — o indica el paquete que seleccionaste en la sección de precios."
+              ></textarea>
+            </div>
+
+            <!-- Submit -->
+            <button
+              id="contact-submit"
+              type="submit"
+              class="btn btn-coffee contact-submit"
+            >
+              <span class="submit-label">
+                <span class="lang-es">Enviar solicitud</span>
+                <span class="lang-en">Send request</span>
+              </span>
+              <span class="submit-loading" aria-hidden="true" hidden>
+                <span class="lang-es">Enviando…</span>
+                <span class="lang-en">Sending…</span>
+              </span>
+            </button>
+          </form>
+
+          <!-- Success state (replaces form) -->
+          <div
+            id="contact-success"
+            class="contact-success"
+            role="status"
+            hidden
+          >
+            <svg class="success-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <circle cx="12" cy="12" r="11" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M7.5 12.5l3 3 6-6" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <h3 class="success-title">
+              <span class="lang-es">Solicitud recibida.</span>
+              <span class="lang-en">Request received.</span>
+            </h3>
+            <p class="success-body">
+              <span class="lang-es">Revisaremos los detalles y te confirmaremos un horario antes del siguiente día hábil. Si tu zona horaria es distinta a Sonora (UTC−7), inclúyela en el campo de proyecto para coordinar sin contratiempos.</span>
+              <span class="lang-en">We'll review the details and confirm a time before the next business day. If your time zone differs from Sonora (UTC−7), add it to the project field so we can coordinate without back-and-forth.</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // ─── Placeholder swap on language change ───────────────────────────────────
+  // LangToggle sets data-lang on <html>; we observe that attribute mutation
+  // to swap input/textarea placeholders and select option text.
+  function syncPlaceholders() {
+    const lang = document.documentElement.getAttribute('data-lang') ?? 'es';
+
+    // Swap input / textarea placeholders
+    document.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>(
+      '[data-placeholder-es]'
+    ).forEach((el) => {
+      const key = lang === 'en' ? 'placeholderEn' : 'placeholderEs';
+      const text = (el as HTMLElement).dataset[key];
+      if (text) el.placeholder = text;
+    });
+
+    // Swap select option text
+    const timeSelect = document.getElementById('contact-time') as HTMLSelectElement | null;
+    if (timeSelect) {
+      Array.from(timeSelect.options).forEach((opt) => {
+        if (!opt.value) {
+          // placeholder option
+          opt.text = lang === 'en' ? 'Select a time range' : 'Selecciona un horario';
+        } else {
+          const key = lang === 'en' ? 'labelEn' : 'labelEs';
+          const text = opt.dataset[key];
+          if (text) opt.text = text;
+        }
+      });
+    }
+  }
+
+  // Run once on load
+  syncPlaceholders();
+
+  // Observe data-lang attribute changes
+  const observer = new MutationObserver((mutations) => {
+    for (const m of mutations) {
+      if (m.attributeName === 'data-lang') {
+        syncPlaceholders();
+        break;
+      }
+    }
+  });
+  observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-lang'] });
+
+  // ─── Form submission ────────────────────────────────────────────────────────
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  const submitBtn = document.getElementById('contact-submit') as HTMLButtonElement | null;
+  const successEl = document.getElementById('contact-success') as HTMLElement | null;
+  const errorEl = document.getElementById('contact-error') as HTMLElement | null;
+
+  function setLoading(loading: boolean) {
+    if (!submitBtn) return;
+    const labelEl = submitBtn.querySelector('.submit-label') as HTMLElement | null;
+    const loadingEl = submitBtn.querySelector('.submit-loading') as HTMLElement | null;
+
+    submitBtn.disabled = loading;
+    if (loading) {
+      submitBtn.classList.add('is-loading');
+      labelEl?.setAttribute('hidden', '');
+      loadingEl?.removeAttribute('hidden');
+    } else {
+      submitBtn.classList.remove('is-loading');
+      labelEl?.removeAttribute('hidden');
+      loadingEl?.setAttribute('hidden', '');
+    }
+  }
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    // Hide previous error if visible
+    if (errorEl) errorEl.hidden = true;
+
+    setLoading(true);
+
+    try {
+      const data = new FormData(form);
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: data,
+      });
+      const json = await res.json();
+
+      if (json.success) {
+        if (successEl) successEl.hidden = false;
+        setTimeout(() => {
+          if (successEl) successEl.hidden = true;
+          if (form) { form.reset(); form.hidden = false; }
+          setLoading(false);
+        }, 5000);
+      } else {
+        if (errorEl) errorEl.hidden = false;
+        setLoading(false);
+      }
+    } catch {
+      if (errorEl) errorEl.hidden = false;
+      setLoading(false);
+    }
+  });
+</script>
+
+<style>
+  /* ─── Layout ────────────────────────────────────────────────────────────── */
+  .contact-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-12);
+  }
+
+  @media (min-width: 960px) {
+    .contact-layout {
+      grid-template-columns: 38fr 62fr;
+      gap: var(--space-16);
+      align-items: start;
+    }
+  }
+
+  /* ─── Left aside ────────────────────────────────────────────────────────── */
+  .contact-aside {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+
+  @media (min-width: 960px) {
+    .contact-aside {
+      position: sticky;
+      top: calc(72px + var(--space-8)); /* nav height + breathing room */
+    }
+  }
+
+  .contact-intro {
+    margin: 0;
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-3);
+    font: 400 15px/1.6 var(--font-sans);
+    color: var(--text-secondary);
+    max-width: 40ch;
+    text-wrap: pretty;
+  }
+
+  .contact-intro-dot {
+    display: inline-block;
+    flex-shrink: 0;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--code);
+    box-shadow: 0 0 0 4px color-mix(in oklab, var(--code) 25%, transparent);
+    position: relative;
+    top: -1px; /* optical alignment to cap-height */
+  }
+
+  /* ─── Meta card ─────────────────────────────────────────────────────────── */
+  .contact-meta-card {
+    background: var(--bg-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+  }
+
+  .contact-meta {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    border-left: 1px dashed var(--border-default);
+    padding-left: var(--space-6);
+  }
+
+  .contact-meta-row {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: var(--space-3);
+    align-items: baseline;
+  }
+
+  .contact-meta-label {
+    font: 400 11px/1.4 var(--font-mono);
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .contact-meta-val {
+    font: 400 13px/1.5 var(--font-mono);
+    color: var(--text-secondary);
+    letter-spacing: -0.01em;
+  }
+
+  .contact-meta-email {
+    color: var(--coffee);
+    text-decoration: none;
+    transition: opacity var(--dur-fast) var(--ease-out);
+  }
+
+  .contact-meta-email:hover {
+    opacity: 0.75;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  /* ─── Form column ───────────────────────────────────────────────────────── */
+  .contact-form-col {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  /* ─── Form card ─────────────────────────────────────────────────────────── */
+  .contact-card {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-subtle);
+    border-top: 2px solid var(--coffee);
+    border-radius: var(--radius-xl);
+    padding: var(--space-10) var(--space-8);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  @media (max-width: 599px) {
+    .contact-card {
+      padding: var(--space-8) var(--space-6);
+    }
+  }
+
+  /* ─── Form ──────────────────────────────────────────────────────────────── */
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  /* ─── Field groups ──────────────────────────────────────────────────────── */
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .form-label {
+    font: 600 14px/1 var(--font-sans);
+    color: var(--text-primary);
+  }
+
+  .form-helper {
+    margin: 0;
+    font: 400 12px/1.4 var(--font-sans);
+    color: var(--text-tertiary);
+  }
+
+  /* ─── Textarea override ─────────────────────────────────────────────────── */
+  .contact-textarea {
+    height: auto;
+    resize: vertical;
+    padding: var(--space-3);
+    line-height: 1.6;
+    min-height: 120px;
+  }
+
+  /* ─── Select — cursor pointer ───────────────────────────────────────────── */
+  select.input {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%238E867A' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right var(--space-3) center;
+    padding-right: var(--space-8);
+  }
+
+  [data-theme="dark"] select.input {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%236B6359' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  }
+
+  /* ─── Days pill fieldset ────────────────────────────────────────────────── */
+  .days-fieldset {
+    border: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .days-helper {
+    margin-top: var(--space-3);
+    margin-bottom: 0;
+  }
+
+  .days-pills {
+    margin-top: var(--space-4);
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    gap: var(--space-2);
+    justify-content: start;
+  }
+
+  @media (max-width: 599px) {
+    .days-pills {
+      grid-template-columns: repeat(2, auto);
+    }
+  }
+
+  .day-pill {
+    position: relative;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--border-default);
+    background: var(--bg-surface);
+    color: var(--text-secondary);
+    padding: 8px 16px;
+    font: 500 13px/1 var(--font-sans);
+    cursor: pointer;
+    user-select: none;
+    transition:
+      background var(--dur-fast) var(--ease-out),
+      border-color var(--dur-fast) var(--ease-out),
+      color var(--dur-fast) var(--ease-out);
+  }
+
+  .day-pill input[type="checkbox"] {
+    opacity: 0;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: 0;
+    pointer-events: none;
+  }
+
+  /* Selected state */
+  .day-pill:has(input:checked) {
+    background: color-mix(in oklab, var(--coffee) 10%, var(--bg-surface));
+    border-color: color-mix(in oklab, var(--coffee) 50%, var(--border-default));
+    color: var(--text-primary);
+  }
+
+  /* Keyboard focus ring on the hidden checkbox surfaces to the pill */
+  .day-pill:has(input:focus-visible) {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+
+  .day-pill:hover {
+    border-color: var(--border-strong);
+    color: var(--text-primary);
+  }
+
+  /* ─── Submit button ─────────────────────────────────────────────────────── */
+  .contact-submit {
+    width: 100%;
+    justify-content: center;
+    height: calc(44px * var(--density));
+    font-size: 15px;
+  }
+
+  .contact-submit.is-loading {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+
+  /* ─── Error banner ──────────────────────────────────────────────────────── */
+  .contact-error {
+    background: var(--bg-surface);
+    border-left: 3px solid var(--coffee);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    padding: var(--space-3) var(--space-4);
+    font: 400 13px/1.55 var(--font-sans);
+    color: var(--text-secondary);
+  }
+
+  .contact-error p { margin: 0; }
+
+  .contact-error a {
+    color: var(--coffee);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  /* ─── Success state ─────────────────────────────────────────────────────── */
+  .contact-success[hidden] { display: none; }
+  .contact-success {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    padding: var(--space-8);
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+  }
+
+  .success-icon {
+    color: var(--code);
+    flex-shrink: 0;
+  }
+
+  .success-title {
+    margin: 0;
+    font: 500 20px/1.3 var(--font-sans);
+    letter-spacing: -0.01em;
+    color: var(--text-primary);
+  }
+
+  .success-body {
+    margin: 0;
+    font: 400 15px/1.6 var(--font-sans);
+    color: var(--text-secondary);
+    max-width: 56ch;
+    text-wrap: pretty;
+  }
+
+  /* ─── Mobile adjustments ────────────────────────────────────────────────── */
+  @media (max-width: 599px) {
+    .contact-meta-row {
+      grid-template-columns: 1fr;
+      gap: var(--space-1);
+    }
+  }
+</style>

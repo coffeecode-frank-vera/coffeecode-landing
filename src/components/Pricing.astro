@@ -1,0 +1,179 @@
+---
+import { getCollection } from 'astro:content';
+import '@styles/pricing.css';
+import SectionHead from './SectionHead.astro';
+import PriceCard from './PriceCard.astro';
+
+const allTiers = await getCollection('pricing');
+const tiers = allTiers.sort((a, b) => a.data.order - b.data.order);
+
+const services = [
+  {
+    id: 'desarrollo-medida',
+    name: 'Desarrollo a la medida',
+    nameEn: 'Custom development',
+    tagline: 'De la arquitectura al despliegue, sin intermediarios.',
+    taglineEn: 'From architecture to deployment, no handoffs.',
+    body: 'Empezamos con una sesión de discovery gratuita para leer el alcance, las restricciones y el stack existente. La propuesta que resulta incluye hitos verificables, rango de inversión y criterios de aceptación — no estimaciones abiertas.',
+    bodyEn: 'We start with a free discovery session to read the scope, constraints, and existing stack. The proposal that follows includes verifiable milestones, an investment range, and acceptance criteria — not open-ended estimates.',
+    cta: 'Agendar discovery',
+    ctaEn: 'Schedule discovery',
+    features: [
+      'Discovery + propuesta sin costo',
+      'Stack definido por el problema, no por preferencia de proveedor (TS, Go, Rust, Postgres)',
+      'Equipo dedicado al proyecto · sin contratistas rotativos',
+      'Modalidades: alcance fijo, retainer o aumento de capacidad',
+      'Soporte y mantenimiento post-entrega opcionales',
+    ],
+    featuresEn: [
+      'Discovery + proposal at no cost',
+      'Stack chosen for the problem, not vendor preference (TS, Go, Rust, Postgres)',
+      'Team dedicated to the project · no rotating contractors',
+      'Engagement models: fixed scope, retainer, or staff augmentation',
+      'Optional post-delivery support and maintenance',
+    ],
+  },
+  {
+    id: 'consultoria',
+    name: 'Consultoría técnica',
+    nameEn: 'Technical consulting',
+    tagline: 'Alguien que puede leer el sistema completo.',
+    taglineEn: 'Someone who can read the whole system.',
+    body: 'Para equipos con un problema real: una aplicación que no escala, una base de código heredada que nadie quiere tocar, o una decisión de arquitectura que necesita un segundo criterio calificado. Trabajamos sobre tu contexto específico, no sobre un marco genérico.',
+    bodyEn: 'For teams with a real problem: an application that does not scale, a legacy codebase nobody wants to touch, or an architecture decision that needs a qualified second opinion. We work from your specific context, not a generic framework.',
+    cta: 'Agendar sesión',
+    ctaEn: 'Schedule session',
+    features: [
+      'Auditoría de código y arquitectura con informe técnico',
+      'Diagnóstico de aplicaciones en producción con problemas de rendimiento',
+      'Revisión de deuda técnica con plan de resolución priorizado',
+      'Consultoría fraccionada en tecnología específica',
+      'Modalidad: sesión única, paquete de horas o contrato mensual',
+    ],
+    featuresEn: [
+      'Code and architecture audit with technical report',
+      'Diagnosis of production applications with performance issues',
+      'Technical debt review with a prioritized resolution plan',
+      'Fractional consulting in a specific technology',
+      'Engagement: single session, hour block, or monthly contract',
+    ],
+  },
+  {
+    id: 'librerias-herramientas',
+    name: 'Librerías y herramientas',
+    nameEn: 'Libraries and tools',
+    tagline: 'Software que hace un trabajo concreto, bien.',
+    taglineEn: 'Software that does one job, correctly.',
+    body: 'Desarrollamos librerías, herramientas internas, SDKs y CLIs para equipos que necesitan infraestructura de código confiable. El alcance y el modelo de entrega dependen del problema — conversemos.',
+    bodyEn: "We build libraries, internal tools, SDKs, and CLIs for teams that need reliable code infrastructure. Scope and delivery model depend on the problem — let's talk.",
+    cta: 'Contactar',
+    ctaEn: 'Contact',
+    features: [
+      'Librerías con API documentada y suite de pruebas',
+      'CLIs y herramientas de línea de comandos',
+      'SDKs para integraciones de terceros',
+      'Herramientas internas: dashboards, scripts de automatización, pipelines',
+      'Publicación y mantenimiento opcionales',
+    ],
+    featuresEn: [
+      'Libraries with documented API and test suite',
+      'CLIs and command-line tooling',
+      'SDKs for third-party integrations',
+      'Internal tooling: dashboards, automation scripts, pipelines',
+      'Optional publishing and maintenance',
+    ],
+  },
+];
+---
+
+<section id="precios" class="section">
+  <div class="container">
+    <SectionHead
+      num="§03"
+      label="Precios"
+      title="Precio fijo o cotización formal. Sin estimaciones abiertas."
+      titleEn="Fixed price or formal quote. No open-ended estimates."
+      lede="Landings con precio fijo y alcance definido. Desarrollos a la medida con cotización formal después de una sesión de discovery."
+      ledeEn="Fixed-price landings with defined scope. Custom development quoted after a formal discovery session."
+    />
+
+    <!-- Sub-section A: Landing Pages -->
+    <p class="pricing-sublabel">
+      <span class="lang-es">Landing Pages</span>
+      <span class="lang-en">Landing Pages</span>
+    </p>
+
+    <div class="pricing-grid">
+      {tiers.map((tier) => (
+        <PriceCard
+          name={tier.data.name}
+          sub={tier.data.sub}
+          subEn={tier.data.subEn}
+          price={tier.data.price}
+          priceEn={tier.data.priceEn}
+          priceNote={tier.data.priceNote}
+          priceNoteEn={tier.data.priceNoteEn}
+          featured={tier.data.featured}
+          cta={tier.data.cta}
+          ctaEn={tier.data.ctaEn}
+          features={tier.data.features}
+          featuresEn={tier.data.featuresEn}
+        />
+      ))}
+    </div>
+
+    <!-- Sub-section B: Custom Development -->
+    <p class="pricing-sublabel pricing-sublabel--second">
+      <span class="lang-es">Desarrollos a la medida</span>
+      <span class="lang-en">Custom development</span>
+    </p>
+
+    <div class="services-grid">
+      {services.map((service) => (
+        <div class="service-card">
+          <div>
+            <p class="service-name">
+              <span class="lang-es">{service.name}</span>
+              <span class="lang-en">{service.nameEn}</span>
+            </p>
+            <p class="service-tagline">
+              <span class="lang-es">{service.tagline}</span>
+              <span class="lang-en">{service.taglineEn}</span>
+            </p>
+          </div>
+
+          <p class="service-body">
+            <span class="lang-es">{service.body}</span>
+            <span class="lang-en">{service.bodyEn}</span>
+          </p>
+
+          <ul class="price-list">
+            <>
+              {service.features.map((f) => (
+                <li class="lang-es">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path d="M13.5 4.5L6.5 11.5L3 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  {f}
+                </li>
+              ))}
+              {service.featuresEn.map((f) => (
+                <li class="lang-en">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path d="M13.5 4.5L6.5 11.5L3 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  {f}
+                </li>
+              ))}
+            </>
+          </ul>
+
+          <a href="#contacto" class="btn btn-secondary service-cta">
+            <span class="lang-es">{service.cta}</span>
+            <span class="lang-en">{service.ctaEn}</span>
+          </a>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

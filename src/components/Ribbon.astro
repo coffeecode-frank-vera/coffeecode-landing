@@ -1,0 +1,50 @@
+---
+import '@styles/page.css';
+
+const services = [
+  {
+    num: '01',
+    titleEs: 'Landing pages',
+    titleEn: 'Landing pages',
+    bodyEs: 'Páginas de producto o servicio: rápidas, bien construidas y ajustadas a lo que realmente necesitas.',
+    bodyEn: 'Product and service pages — fast, well-built, scoped to what you actually need.',
+  },
+  {
+    num: '02',
+    titleEs: 'Aplicaciones a medida',
+    titleEn: 'Custom applications',
+    bodyEs: 'Desde e-commerce hasta sistemas empresariales: desarrollo full stack, de la base de datos a producción.',
+    bodyEn: 'From e-commerce to enterprise systems — full stack, from the database to production.',
+  },
+  {
+    num: '03',
+    titleEs: 'Consultoría técnica',
+    titleEn: 'Technical consulting',
+    bodyEs: 'Revisión de arquitectura, documentación, corrección de deuda técnica o refuerzo puntual en una tecnología específica.',
+    bodyEn: 'Architecture review, documentation, technical debt cleanup, or focused reinforcement in a specific technology.',
+  },
+  {
+    num: '04',
+    titleEs: 'Librerías y productos',
+    titleEn: 'Libraries and products',
+    bodyEs: 'Herramientas y paquetes de software construidos para equipos que no quieren reinventar lo mismo dos veces.',
+    bodyEn: 'Software tools and packages built for teams that don\'t want to solve the same problem twice.',
+  },
+];
+---
+
+<div class="ribbon">
+  {services.map((s) => (
+    <div class="ribbon-cell">
+      <span class="ribbon-num">{s.num} /</span>
+      <p class="ribbon-title">
+        <span class="lang-es">{s.titleEs}</span>
+        <span class="lang-en">{s.titleEn}</span>
+      </p>
+      <p class="ribbon-body">
+        <span class="lang-es">{s.bodyEs}</span>
+        <span class="lang-en">{s.bodyEn}</span>
+      </p>
+    </div>
+  ))}
+</div>

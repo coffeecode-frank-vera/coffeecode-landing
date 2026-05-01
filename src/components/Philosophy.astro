@@ -1,0 +1,102 @@
+---
+import '@styles/page.css';
+import SectionHead from './SectionHead.astro';
+
+const principles = [
+  {
+    num: '01',
+    titleEs: 'El alcance se define, no se asume',
+    titleEn: 'Scope is defined, not assumed',
+    bodyEs: 'Todo proyecto comienza con una lectura precisa del problema: sus dimensiones técnicas, sus restricciones de negocio y los criterios que definirán el éxito. El alcance emerge de ese diagnóstico. No de una propuesta genérica.',
+    bodyEn: 'Every project begins with a precise reading of the problem: its technical dimensions, business constraints, and the criteria that will define success. Scope follows from that analysis. Not from a generic proposal.',
+  },
+  {
+    num: '02',
+    titleEs: 'Visibilidad estructural desde el inicio',
+    titleEn: 'Structural visibility from the start',
+    bodyEs: 'Precio fijo, cronograma verificable, avance documentado en cada etapa. La relación con el cliente está diseñada para eliminar la ambigüedad presupuestaria y operativa antes de que genere fricción.',
+    bodyEn: 'Fixed price, verifiable timeline, documented progress at every stage. The client relationship is structured to eliminate budget and operational ambiguity before it generates friction.',
+  },
+  {
+    num: '03',
+    titleEs: 'Calidad de producción como condición de entrega',
+    titleEn: 'Production quality as a delivery condition',
+    bodyEs: 'La velocidad de despliegue no es un indicador de valor si el sistema no está preparado para lo que el mundo real le exige. Entregamos código que opera bajo carga, gestiona fallos de forma controlada y escala sin rediseño.',
+    bodyEn: 'Deployment speed is not a measure of value if the system is not prepared for what the real world demands of it. We deliver code that operates under load, handles failures in a controlled manner, and scales without requiring a redesign.',
+  },
+  {
+    num: '04',
+    titleEs: 'Seguridad y observabilidad desde el primer commit',
+    titleEn: 'Security and observability from the first commit',
+    bodyEs: 'Los controles de seguridad — incluyendo análisis estático con SEMGREP en cada pipeline — y la trazabilidad completa de logs son parte de la arquitectura desde el inicio, no mejoras retroactivas del sprint final.',
+    bodyEn: 'Security controls — including static analysis with SEMGREP in every pipeline — and full log traceability are part of the architecture from day one, not retroactive additions bolted on at close.',
+  },
+];
+---
+
+<section id="filosofia" class="section">
+  <div class="container">
+    <SectionHead
+      num="§02"
+      label="Filosofía"
+      title="Cómo trabajamos"
+      titleEn="How we work"
+      lede="Cuatro compromisos operativos que rigen cada proyecto — desde el encuadre inicial hasta la estabilidad en producción."
+      ledeEn="Four operational commitments that govern every engagement — from initial scoping through production stability."
+    />
+
+    <div class="philosophy">
+      {principles.map((p) => (
+        <article class={`principle principle-${p.num}`}>
+          <p class="principle-num">
+            <span class="principle-num-digits">{p.num}</span>
+            <span class="principle-num-sep" aria-hidden="true"> /</span>
+          </p>
+          <h3 class="principle-title">
+            <span class="lang-es">{p.titleEs}</span>
+            <span class="lang-en">{p.titleEn}</span>
+          </h3>
+          <p class="principle-body">
+            <span class="lang-es">{p.bodyEs}</span>
+            <span class="lang-en">{p.bodyEn}</span>
+          </p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  /*
+    Scoped micro-detail styles for the Philosophy grid.
+    Base layout stays in page.css — only card-level refinements here.
+  */
+
+  /* Card 01 gets a coffee-colored top accent to anchor the sequence visually.
+     Two pixels is enough signal; anything heavier competes with the border-radius. */
+  .principle-01 {
+    border-top: 2px solid var(--coffee);
+  }
+
+  /* The number label on card 01 inherits the coffee accent.
+     Cards 02–04 remain tertiary — the accent doesn't repeat. */
+  .principle-01 .principle-num-digits {
+    color: var(--coffee);
+  }
+
+  /* text-wrap: balance distributes line breaks evenly.
+     Critical for title 04 ("Security and observability, not afterthoughts")
+     which is nearly twice as long as the other titles. */
+  :global(.principle-title) {
+    text-wrap: balance;
+  }
+
+  /* Reduce horizontal padding on mobile so cards breathe without
+     the content feeling cramped in a single column.
+     Vertical padding stays at --space-8 (32px) — enough room. */
+  @media (max-width: 600px) {
+    :global(.principle) {
+      padding: var(--space-8) var(--space-6);
+    }
+  }
+</style>

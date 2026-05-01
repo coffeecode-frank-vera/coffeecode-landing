@@ -1,0 +1,13 @@
+{
+  "name": "Coffee Code",
+  "short_name": "CoffeeCode",
+  "description": "Craft Software Studio",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1a1410",
+  "theme_color": "#c8854a",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" },
+    { "src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}

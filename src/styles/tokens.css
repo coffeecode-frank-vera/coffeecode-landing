@@ -1,0 +1,325 @@
+/* ─────────────────────────────────────────────
+   Coffee Code — Design System tokens
+   ───────────────────────────────────────────── */
+
+/* Fonts loaded via <link> in Base.astro — not here, LightningCSS cannot resolve external @import URLs */
+
+:root {
+  --font-sans: 'IBM Plex Sans', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+  /* Spacing scale (4px base) */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+  --space-32: 128px;
+
+  /* Density multiplier (set by tweaks; 1 = comfortable) */
+  --density: 1;
+
+  /* Radius scale */
+  --radius-none: 0;
+  --radius-sm:   4px;
+  --radius-md:   6px;
+  --radius-lg:   10px;
+  --radius-xl:   16px;
+  --radius-2xl:  24px;
+  --radius-full: 9999px;
+
+  /* Z-index */
+  --z-base:    0;
+  --z-raised:  10;
+  --z-sticky:  100;
+  --z-overlay: 1000;
+  --z-modal:   2000;
+  --z-toast:   3000;
+
+  /* Motion */
+  --ease-out:    cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dur-fast: 120ms;
+  --dur-base: 200ms;
+  --dur-slow: 360ms;
+
+  /* Breakpoints (reference, used in JS) */
+  --bp-sm: 640px;
+  --bp-md: 768px;
+  --bp-lg: 1024px;
+  --bp-xl: 1280px;
+  --bp-2xl: 1536px;
+}
+
+/* ─── Light theme ─────────────────────────────── */
+[data-theme="light"] {
+  --bg-base:        #F2EEE5;
+  --bg-surface:     #FAF7F0;
+  --bg-elevated:    #FFFFFF;
+
+  --text-primary:   #1A1410;
+  --text-secondary: #5C5448;
+  --text-tertiary:  #8E867A;
+
+  --border-subtle:  #E8E0D4;
+  --border-default: #DDD3C2;
+  --border-strong:  #C5B9A4;
+
+  --brace:          #5C5448;
+  --coffee:         #B85015;
+  --code:           #15803D;
+  --syntax:         #8E867A;
+
+  /* Functional aliases */
+  --focus-ring:     #B85015;
+  --selection-bg:   #B850151A;
+
+  /* Shadows — warm-tinted */
+  --shadow-xs: 0 1px 2px rgba(26, 20, 16, 0.04);
+  --shadow-sm: 0 1px 2px rgba(26, 20, 16, 0.05), 0 1px 3px rgba(26, 20, 16, 0.06);
+  --shadow-md: 0 2px 4px rgba(26, 20, 16, 0.05), 0 4px 8px rgba(26, 20, 16, 0.06);
+  --shadow-lg: 0 4px 8px rgba(26, 20, 16, 0.06), 0 12px 24px rgba(26, 20, 16, 0.08);
+  --shadow-xl: 0 8px 16px rgba(26, 20, 16, 0.08), 0 24px 48px rgba(26, 20, 16, 0.10);
+}
+
+[data-theme="light"][data-palette="paper"] {
+  --bg-base: #EFEAE0;
+  --bg-surface: #F7F2E8;
+  --bg-elevated: #FFFFFF;
+  --border-subtle: #E5DECF;
+  --border-default: #D9D0BD;
+  --border-strong: #C0B59E;
+}
+[data-theme="light"][data-palette="bone"] {
+  --bg-base: #EAE7DE;
+  --bg-surface: #F4F0E5;
+  --bg-elevated: #FCFAF4;
+  --border-subtle: #DFDACC;
+  --border-default: #D2CBB9;
+  --border-strong: #B8B09B;
+}
+[data-theme="light"][data-palette="linen"] {
+  --bg-base: #ECE6D7;
+  --bg-surface: #F6F1E2;
+  --bg-elevated: #FCF8EC;
+  --border-subtle: #E2DAC4;
+  --border-default: #D5CBB0;
+  --border-strong: #BCAF8F;
+}
+
+/* ─── Dark theme ──────────────────────────────── */
+[data-theme="dark"] {
+  --bg-base:        #0E0D0C;
+  --bg-surface:     #1A1716;
+  --bg-elevated:    #25201E;
+
+  --text-primary:   #F4EEE0;
+  --text-secondary: #B8AC9E;
+  --text-tertiary:  #6B6359;
+
+  --border-subtle:  #1F1B19;
+  --border-default: #2D2825;
+  --border-strong:  #3D3633;
+
+  --brace:          #B8AC9E;
+  --coffee:         #ED8632;
+  --code:           #3FBA70;
+  --syntax:         #6B6359;
+
+  --focus-ring:     #ED8632;
+  --selection-bg:   #ED86321F;
+
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.30);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35), 0 1px 3px rgba(0, 0, 0, 0.40);
+  --shadow-md: 0 2px 4px rgba(0, 0, 0, 0.40), 0 4px 8px rgba(0, 0, 0, 0.50);
+  --shadow-lg: 0 4px 8px rgba(0, 0, 0, 0.50), 0 12px 24px rgba(0, 0, 0, 0.55);
+  --shadow-xl: 0 8px 16px rgba(0, 0, 0, 0.55), 0 24px 48px rgba(0, 0, 0, 0.60);
+}
+
+/* ─── Type scale ──────────────────────────────── */
+.t-display { font: 600 64px/1.05 var(--font-sans); letter-spacing: -0.025em; color: var(--text-primary); }
+.t-h1      { font: 600 44px/1.15 var(--font-sans); letter-spacing: -0.02em; color: var(--text-primary); }
+.t-h2      { font: 600 30px/1.25 var(--font-sans); letter-spacing: -0.015em; color: var(--text-primary); }
+.t-h3      { font: 500 20px/1.4 var(--font-sans); letter-spacing: -0.005em; color: var(--text-primary); }
+.t-body-lg { font: 400 18px/1.6 var(--font-sans); color: var(--text-secondary); }
+.t-body    { font: 400 15px/1.6 var(--font-sans); color: var(--text-secondary); }
+.t-caption { font: 400 13px/1.5 var(--font-sans); color: var(--text-tertiary); }
+.t-mono    { font: 400 13px/1.6 var(--font-mono); letter-spacing: -0.01em; color: var(--text-secondary); }
+.t-mono-sm { font: 400 11px/1.5 var(--font-mono); letter-spacing: 0; color: var(--text-tertiary); text-transform: uppercase; }
+
+/* ─── Base reset ──────────────────────────────── */
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: var(--font-sans);
+  background: var(--bg-base);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+::selection { background: var(--selection-bg); color: var(--text-primary); }
+
+/* ─── Buttons ─────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  height: calc(40px * var(--density));
+  padding: 0 calc(var(--space-5) * var(--density));
+  border-radius: var(--radius-md);
+  font: 500 14px/1 var(--font-sans);
+  letter-spacing: -0.005em;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-out),
+              border-color var(--dur-fast) var(--ease-out),
+              color var(--dur-fast) var(--ease-out),
+              transform var(--dur-fast) var(--ease-out);
+  white-space: nowrap;
+  user-select: none;
+  text-decoration: none;
+}
+.btn:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+.btn:active { transform: translateY(1px); }
+
+.btn-primary {
+  background: var(--text-primary);
+  color: var(--bg-base);
+  border-color: var(--text-primary);
+}
+.btn-primary:hover { background: var(--text-secondary); border-color: var(--text-secondary); }
+
+.btn-secondary {
+  background: var(--bg-elevated);
+  color: var(--text-primary);
+  border-color: var(--border-default);
+}
+.btn-secondary:hover { border-color: var(--border-strong); background: var(--bg-surface); }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-primary);
+  border-color: transparent;
+}
+.btn-ghost:hover { background: var(--bg-surface); }
+
+.btn-coffee {
+  background: var(--coffee);
+  color: #FFFFFF;
+  border-color: var(--coffee);
+}
+[data-theme="dark"] .btn-coffee { color: #1A1410; }
+.btn-coffee:hover {
+  background: color-mix(in oklab, var(--coffee) 88%, #000);
+  border-color: color-mix(in oklab, var(--coffee) 88%, #000);
+}
+.btn-coffee:focus-visible { outline-color: var(--text-primary); }
+
+/* ─── Inputs ──────────────────────────────────── */
+.input {
+  height: calc(40px * var(--density));
+  padding: 0 var(--space-3);
+  background: var(--bg-elevated);
+  color: var(--text-primary);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  font: 400 14px/1 var(--font-sans);
+  width: 100%;
+  transition: border-color var(--dur-fast) var(--ease-out),
+              box-shadow var(--dur-fast) var(--ease-out);
+}
+.input::placeholder { color: var(--text-tertiary); }
+.input:hover { border-color: var(--border-strong); }
+.input:focus {
+  outline: none;
+  border-color: var(--focus-ring);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--focus-ring) 20%, transparent);
+}
+
+/* ─── Card ────────────────────────────────────── */
+.card {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: calc(var(--space-6) * var(--density));
+}
+
+/* ─── Badge ───────────────────────────────────── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  height: 22px;
+  padding: 0 var(--space-2);
+  border-radius: var(--radius-sm);
+  font: 500 11px/1 var(--font-mono);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  border: 1px solid var(--border-default);
+  background: var(--bg-surface);
+  color: var(--text-secondary);
+}
+.badge-coffee { color: var(--coffee); border-color: color-mix(in oklab, var(--coffee) 35%, var(--border-default)); background: color-mix(in oklab, var(--coffee) 7%, var(--bg-surface)); }
+.badge-code   { color: var(--code);   border-color: color-mix(in oklab, var(--code) 35%, var(--border-default));   background: color-mix(in oklab, var(--code) 7%, var(--bg-surface)); }
+.badge-dot::before {
+  content: '';
+  width: 6px; height: 6px; border-radius: 50%;
+  background: currentColor;
+  display: inline-block;
+}
+
+/* ─── Code block ──────────────────────────────── */
+.code-block {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  font: 400 13px/1.65 var(--font-mono);
+  color: var(--text-primary);
+  overflow-x: auto;
+  white-space: pre;
+}
+.tok-key   { color: var(--coffee); }
+.tok-val   { color: var(--code); }
+.tok-com   { color: var(--syntax); font-style: italic; }
+.tok-pun   { color: var(--brace); }
+.tok-str   { color: var(--code); }
+
+/* ─── Divider ─────────────────────────────────── */
+.hr-dashed {
+  border: 0;
+  border-top: 1px dashed var(--border-default);
+  margin: 0;
+}
+
+/* ─── Theme cards (the dual showcase) ─────────── */
+.theme-pane {
+  background: var(--bg-base);
+  color: var(--text-primary);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  position: relative;
+  transition: background var(--dur-base) var(--ease-out);
+}
+
+/* Focus outline utility */
+.focusable:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+/* Misc */
+.muted { color: var(--text-tertiary); }

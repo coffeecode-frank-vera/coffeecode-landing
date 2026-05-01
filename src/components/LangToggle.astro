@@ -1,0 +1,66 @@
+---
+---
+
+<button class="btn btn-ghost lang-toggle" aria-label="Cambiar idioma / Switch language">
+  <span class="lt-opt" data-opt="es">ES</span>
+  <span class="lt-sep" aria-hidden="true">/</span>
+  <span class="lt-opt" data-opt="en">EN</span>
+</button>
+
+<script>
+  function syncLang() {
+    const lang = document.documentElement.getAttribute('data-lang') ?? 'es';
+    document.querySelectorAll('.lt-opt').forEach((el) => {
+      el.classList.toggle('is-active', (el as HTMLElement).dataset.opt === lang);
+    });
+  }
+
+  syncLang();
+
+  const toggle = document.querySelector('.lang-toggle') as HTMLButtonElement;
+  const html = document.documentElement;
+
+  toggle?.addEventListener('click', () => {
+    const next = html.getAttribute('data-lang') === 'es' ? 'en' : 'es';
+    html.setAttribute('data-lang', next);
+    html.lang = next;
+    localStorage.setItem('lang', next);
+    syncLang();
+
+    const metaDesc = document.getElementById('meta-desc');
+    if (metaDesc) {
+      const desc = metaDesc.getAttribute('data-desc-' + next);
+      if (desc) metaDesc.setAttribute('content', desc);
+    }
+  });
+</script>
+
+<style>
+  .lang-toggle {
+    font: 500 12px/1 var(--font-mono);
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    padding: var(--space-1) var(--space-2);
+  }
+
+  .lt-sep {
+    color: var(--border-default);
+  }
+
+  .lt-opt {
+    color: var(--text-tertiary);
+    padding: var(--space-1) var(--space-2);
+    border-radius: var(--radius-sm);
+    transition:
+      color var(--dur-fast) var(--ease-out),
+      background var(--dur-fast) var(--ease-out);
+  }
+
+  .lt-opt.is-active {
+    color: var(--text-primary);
+    background: var(--bg-elevated);
+    font-weight: 600;
+  }
+</style>

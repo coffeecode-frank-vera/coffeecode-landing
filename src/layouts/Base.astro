@@ -1,0 +1,118 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import '@styles/tokens.css';
+import '@styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Coffee Code — Craft Software Studio',
+  description = 'Desarrollamos software de extremo a extremo. Landing pages, aplicaciones a medida y consultoría técnica.',
+} = Astro.props;
+
+const descriptionEn = 'End-to-end software development. Landing pages, custom applications, and technical consulting.';
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" id="meta-desc" content={description} data-desc-es={description} data-desc-en={descriptionEn} />
+    <title>{title}</title>
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://coffeecode.com.mx/" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://coffeecode.com.mx/" />
+    <meta property="og:title" content="Coffee Code — Craft Software Studio" />
+    <meta property="og:description" content="Desarrollamos software de extremo a extremo. Landing pages, aplicaciones a medida y consultoría técnica." />
+    <meta property="og:image" content="https://coffeecode.com.mx/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Coffee Code — Craft Software Studio" />
+    <meta name="twitter:description" content="Desarrollamos software de extremo a extremo. Landing pages, aplicaciones a medida y consultoría técnica." />
+    <meta name="twitter:image" content="https://coffeecode.com.mx/og-image.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Theme + language bootstrap — runs before paint to prevent flash -->
+    <script is:inline>
+      (() => {
+        // Theme: system preference, fallback dark
+        const storedTheme = localStorage.getItem('theme');
+        const sysLight = matchMedia('(prefers-color-scheme: light)').matches;
+        const theme = storedTheme || (sysLight ? 'light' : 'dark');
+        document.documentElement.setAttribute('data-theme', theme);
+        document.documentElement.setAttribute('data-palette', 'arriesgado');
+
+        // Language: system preference, fallback Spanish
+        const storedLang = localStorage.getItem('lang');
+        let lang = storedLang;
+        if (!lang) {
+          const navLang = (navigator.language || '').toLowerCase();
+          lang = navLang.startsWith('en') ? 'en' : 'es';
+        }
+        document.documentElement.setAttribute('data-lang', lang);
+        document.documentElement.lang = lang;
+
+        // Update meta description
+        const metaDesc = document.getElementById('meta-desc');
+        if (metaDesc) {
+          const desc = metaDesc.getAttribute('data-desc-' + lang);
+          if (desc) metaDesc.setAttribute('content', desc);
+        }
+      })();
+    </script>
+
+    <ClientRouter />
+
+    <!-- Structured data -->
+    <script type="application/ld+json" is:inline>
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Coffee Code",
+        "url": "https://coffeecode.com.mx",
+        "description": "Craft software studio. End-to-end software development, technical consulting, and landing pages.",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Nogales",
+          "addressRegion": "Sonora",
+          "addressCountry": "MX"
+        },
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "email": "contact@coffeecode.com.mx",
+          "contactType": "customer service"
+        },
+        "sameAs": []
+      }
+    </script>
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">
+      <span class="lang-es">Saltar al contenido</span>
+      <span class="lang-en">Skip to content</span>
+    </a>
+    <slot />
+  </body>
+</html>

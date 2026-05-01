@@ -1,0 +1,264 @@
+---
+import '@styles/page.css';
+import SectionHead from '@components/SectionHead.astro';
+
+const bodyBlocks = [
+  {
+    es: 'Somos un equipo de ingenieros con más de 10 años entregando software en producción para clientes nacionales e internacionales. Cada sistema que construimos está diseñado para el mundo real: bajo carga, con fallos parciales, con equipos que lo van a mantener. La precisión no es una preferencia estética — es la diferencia entre un sistema con tolerancia a fallos y uno sin ella.',
+    en: "We're a team of engineers with over 10 years shipping software to production for clients across markets. Every system we build is designed for the real world: under load, with partial failures, maintained by teams. Precision isn't an aesthetic preference — it's the difference between a system with fault tolerance and one without.",
+  },
+  {
+    es: 'El punto de partida es una conversación directa. Trabajamos en español e inglés con la misma fluidez, de modo que la comunicación no se convierte en un factor de riesgo. Sin formularios de doce campos, sin una fase de discovery de dos semanas antes de ver una propuesta. Entendemos el problema, lo convertimos en código, y ese código en tu producto.',
+    en: "It starts with a direct conversation. We work in Spanish and English with equal fluency, so communication doesn't become a risk factor. No twelve-field intake forms, no two-week discovery phase before you see a proposal. We understand the problem, turn it into code, and that code into your product.",
+  },
+  {
+    es: 'También trabajamos con lo que ya existe. Evaluamos sistemas heredados, identificamos riesgos reales y los documentamos con rigor. Si tu equipo necesita fortalecer sus capacidades técnicas, hacemos eso también — formación enfocada en ingeniería de producción, no en fundamentos genéricos. Y cuando el proyecto termina, la cobertura post-despliegue no desaparece.',
+    en: "We also work with what already exists. We assess legacy systems, identify real risks, and document them with rigor. If your team needs to strengthen its technical capabilities, we do that too — training focused on production engineering, not generic fundamentals. And when the project ends, post-deployment coverage doesn't disappear.",
+  },
+];
+
+const stats = [
+  { value: '10+', labelEs: 'años en producción',              labelEn: 'years in production' },
+  { value: '3',   labelEs: 'líneas de servicio',              labelEn: 'service lines' },
+  { value: '2',   labelEs: 'mercados: nacional e internacional', labelEn: 'markets: local and international' },
+];
+
+const closingStat = {
+  value: '10+',
+  labelEs: 'años atendiendo clientes en todo el mundo',
+  labelEn: 'years serving clients around the world',
+};
+---
+
+<section id="quienes-somos" class="section">
+  <div class="container">
+    <SectionHead
+      num="§01"
+      label="Quiénes somos"
+      title="Software que llega a producción y se queda."
+      titleEn="Software that ships to production and stays there."
+      lede="Más de una década construyendo sistemas reales — con resiliencia, observabilidad y el criterio para saber qué no construir."
+      ledeEn="Over a decade building real systems — with resilience, observability, and the judgment to know what not to build."
+    />
+
+    <div class="about-grid">
+      <!-- Left: prose body -->
+      <div class="about-body">
+        {bodyBlocks.map((block, i) => (
+          <div class="about-block">
+            <span class="about-block-index" aria-hidden="true">0{i + 1}</span>
+            <p class="about-block-text">
+              <span class="lang-es">{block.es}</span>
+              <span class="lang-en">{block.en}</span>
+            </p>
+          </div>
+        ))}
+      </div>
+
+      <!-- Right: stats panel -->
+      <aside class="about-panel" aria-label="Studio at a glance">
+        <p class="about-panel-label t-mono-sm">
+          <span class="lang-es">Estudio en cifras</span>
+          <span class="lang-en">Studio at a glance</span>
+        </p>
+
+        <dl class="about-stats">
+          {stats.map((s) => (
+            <div class="about-stat">
+              <dt class="about-stat-label">
+                <span class="lang-es">{s.labelEs}</span>
+                <span class="lang-en">{s.labelEn}</span>
+              </dt>
+              <dd class="about-stat-value">{s.value}</dd>
+            </div>
+          ))}
+        </dl>
+
+        <!-- Closing stat — zero systems without support -->
+        <div class="about-stat-closer">
+          <hr class="hr-dashed" />
+          <div class="about-stat-closer-inner">
+            <span class="about-stat-closer-value" aria-hidden="true">{closingStat.value}</span>
+            <p class="about-stat-closer-label">
+              <span class="lang-es">{closingStat.labelEs}</span>
+              <span class="lang-en">{closingStat.labelEn}</span>
+            </p>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<style>
+/* ─── Layout ─────────────────────────────────────────── */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-12);
+}
+
+@media (min-width: 1100px) {
+  .about-grid {
+    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+    gap: var(--space-16);
+    align-items: start;
+  }
+}
+
+/* ─── Body prose ─────────────────────────────────────── */
+.about-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.about-block {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  gap: var(--space-5);
+  padding: var(--space-8) 0;
+  border-top: 1px solid var(--border-subtle);
+  align-items: baseline;
+}
+
+.about-block:last-child {
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.about-block-index {
+  font: 400 11px/1 var(--font-mono);
+  color: var(--text-tertiary);
+  letter-spacing: 0.04em;
+  padding-top: 4px; /* optical align with first line of text */
+  user-select: none;
+}
+
+.about-block-text {
+  font: 400 16px/1.65 var(--font-sans);
+  color: var(--text-secondary);
+  margin: 0;
+  text-wrap: pretty;
+  overflow-wrap: break-word;
+}
+
+/* ─── Stats panel ────────────────────────────────────── */
+.about-panel {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  padding: var(--space-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+@media (min-width: 1100px) {
+  .about-panel {
+    position: sticky;
+    top: calc(72px + var(--space-8)); /* nav height + breathing room */
+  }
+}
+
+.about-panel-label {
+  margin: 0;
+  /* t-mono-sm handles font + color */
+}
+
+/* ─── Stat rows ──────────────────────────────────────── */
+.about-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+}
+
+@media (min-width: 720px) and (max-width: 1099px) {
+  .about-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-4);
+  }
+}
+
+.about-stat {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-4);
+  padding: var(--space-5) 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+@media (min-width: 720px) and (max-width: 1099px) {
+  .about-stat {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: var(--space-5);
+    border-bottom: none;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+  }
+}
+
+.about-stat-label {
+  font: 400 13px/1.4 var(--font-mono);
+  color: var(--text-tertiary);
+  letter-spacing: -0.01em;
+  margin: 0;
+  max-width: 24ch;
+  order: 0;
+}
+
+.about-stat-value {
+  font: 600 28px/1 var(--font-mono);
+  color: var(--text-primary);
+  letter-spacing: -0.03em;
+  margin: 0;
+  white-space: nowrap;
+  order: 1;
+}
+
+@media (min-width: 720px) and (max-width: 1099px) {
+  .about-stat-value {
+    font-size: 36px;
+    order: 0;
+  }
+  .about-stat-label {
+    order: 1;
+  }
+}
+
+/* ─── Closing stat (the zero) ────────────────────────── */
+.about-stat-closer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  padding-top: var(--space-2);
+}
+
+.about-stat-closer-inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.about-stat-closer-value {
+  font: 600 56px/1 var(--font-mono);
+  color: var(--coffee);
+  letter-spacing: -0.04em;
+  margin: 0;
+}
+
+.about-stat-closer-label {
+  font: 400 13px/1.45 var(--font-mono);
+  color: var(--text-secondary);
+  letter-spacing: -0.01em;
+  margin: 0;
+  max-width: 26ch;
+}
+</style>

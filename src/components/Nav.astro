@@ -1,0 +1,182 @@
+---
+import '@styles/page.css';
+import ThemeToggle from '@components/ThemeToggle.astro';
+import LangToggle from '@components/LangToggle.astro';
+---
+
+<header>
+  <nav class="nav" aria-label="Navegación principal / Main navigation">
+    <div class="nav-inner">
+
+      <a href="/" class="nav-logo" aria-label="Coffee Code — inicio / home">
+        <!-- Wordmark: desktop — inline SVG so fill responds to CSS variables -->
+        <svg
+          class="nav-logo-wordmark"
+          viewBox="0 0 290 44"
+          fill="none"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <text
+            x="8" y="32"
+            font-family="'IBM Plex Mono', ui-monospace, monospace"
+            font-size="28"
+            font-weight="500"
+          ><tspan fill="var(--brace)">{'{'}</tspan><tspan fill="var(--coffee)"> coffee</tspan><tspan fill="var(--syntax)">:</tspan><tspan fill="var(--code)"> code </tspan><tspan fill="var(--brace)">{'}'}</tspan></text>
+        </svg>
+
+        <!-- Mark: mobile — { cc } symbol only, text cropped out -->
+        <svg
+          class="nav-logo-mark"
+          viewBox="60 25 200 70"
+          fill="none"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <g transform="translate(40, 10)">
+            <path d="M 50 25 Q 40 25 40 35 L 40 46 Q 40 50 33 50 Q 40 50 40 54 L 40 65 Q 40 75 50 75" stroke="var(--brace)" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M 101.07 30.85 A 25 25 0 1 0 101.07 69.15" stroke="var(--coffee)" stroke-width="5.5" stroke-linecap="round"/>
+            <circle cx="120" cy="35" r="4.5" fill="var(--syntax)"/>
+            <circle cx="120" cy="65" r="4.5" fill="var(--syntax)"/>
+            <path d="M 171.07 30.85 A 25 25 0 1 0 171.07 69.15" stroke="var(--code)" stroke-width="5.5" stroke-linecap="round"/>
+            <path d="M 190 25 Q 200 25 200 35 L 200 46 Q 200 50 207 50 Q 200 50 200 54 L 200 65 Q 200 75 190 75" stroke="var(--brace)" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </g>
+        </svg>
+      </a>
+
+      <div class="nav-links" id="nav-links">
+        <a href="#quienes-somos" class="nav-link">
+          <span class="lang-es">Quiénes somos</span>
+          <span class="lang-en">Who we are</span>
+        </a>
+        <a href="#filosofia" class="nav-link">
+          <span class="lang-es">Filosofía</span>
+          <span class="lang-en">Philosophy</span>
+        </a>
+        <a href="#precios" class="nav-link">
+          <span class="lang-es">Precios</span>
+          <span class="lang-en">Pricing</span>
+        </a>
+        <a href="#contacto" class="btn btn-coffee nav-cta">
+          <span class="lang-es">Contacto</span>
+          <span class="lang-en">Contact</span>
+        </a>
+      </div>
+
+      <div class="nav-actions">
+        <LangToggle />
+        <ThemeToggle />
+        <button
+          class="btn btn-ghost nav-hamburger"
+          id="nav-hamburger"
+          aria-expanded="false"
+          aria-controls="nav-links"
+          aria-label="Abrir menú"
+        >
+          <svg width="18" height="14" viewBox="0 0 18 14" fill="none" aria-hidden="true" focusable="false">
+            <rect y="0"  width="18" height="2" rx="1" fill="currentColor"/>
+            <rect y="6"  width="18" height="2" rx="1" fill="currentColor"/>
+            <rect y="12" width="18" height="2" rx="1" fill="currentColor"/>
+          </svg>
+        </button>
+      </div>
+
+    </div>
+  </nav>
+</header>
+
+<style>
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .nav-hamburger { display: none; }
+
+  @media (max-width: 719px) {
+    .nav-hamburger { display: inline-flex; padding: var(--space-2); }
+    .nav-cta       { display: none; }
+
+    .nav-links {
+      display: none;
+      flex-direction: column;
+      align-items: stretch;
+      position: absolute;
+      top: 72px;
+      left: 0;
+      right: 0;
+      background: var(--bg-base);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: var(--space-3) var(--space-4) var(--space-5);
+      gap: 0;
+      z-index: var(--z-sticky);
+    }
+
+    .nav-links.is-open { display: flex; }
+
+    .nav-link {
+      width: 100%;
+      padding: var(--space-3) var(--space-4);
+    }
+  }
+</style>
+
+<script>
+  // Scroll-aware shadow
+  const nav = document.querySelector('.nav') as HTMLElement;
+  const sentinel = document.createElement('div');
+  sentinel.style.cssText = 'position:absolute;top:0;height:1px;width:1px;pointer-events:none';
+  document.body.prepend(sentinel);
+
+  new IntersectionObserver(([entry]) => {
+    nav.classList.toggle('is-scrolled', !entry.isIntersecting);
+  }).observe(sentinel);
+
+  // Active section highlighting
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-link[href^="#"]');
+
+  const sectionObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          navLinks.forEach((link) => {
+            link.classList.toggle('is-active', link.getAttribute('href') === `#${entry.target.id}`);
+          });
+        }
+      });
+    },
+    { rootMargin: '-30% 0px -60% 0px' }
+  );
+
+  sections.forEach((s) => sectionObserver.observe(s));
+
+  // Mobile hamburger toggle
+  const hamburger = document.getElementById('nav-hamburger') as HTMLButtonElement;
+  const navLinksEl = document.getElementById('nav-links') as HTMLElement;
+
+  function menuLabel(es: string, en: string) {
+    return document.documentElement.getAttribute('data-lang') === 'en' ? en : es;
+  }
+
+  hamburger.addEventListener('click', () => {
+    const isOpen = navLinksEl.classList.toggle('is-open');
+    hamburger.setAttribute('aria-expanded', String(isOpen));
+    hamburger.setAttribute(
+      'aria-label',
+      isOpen
+        ? menuLabel('Cerrar menú', 'Close menu')
+        : menuLabel('Abrir menú', 'Open menu')
+    );
+  });
+
+  // Close menu when a link is clicked
+  navLinksEl.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => {
+      navLinksEl.classList.remove('is-open');
+      hamburger.setAttribute('aria-expanded', 'false');
+      hamburger.setAttribute('aria-label', menuLabel('Abrir menú', 'Open menu'));
+    });
+  });
+</script>

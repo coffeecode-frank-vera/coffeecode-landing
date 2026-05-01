@@ -1,0 +1,55 @@
+/* ─────────────────────────────────────────────
+   Coffee Code — Global reset + base utilities
+   ───────────────────────────────────────────── */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-sans);
+  background: var(--bg-base);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.5;
+  transition:
+    background-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out);
+}
+
+img, svg { display: block; max-width: 100%; }
+button { font: inherit; cursor: pointer; }
+a { color: inherit; }
+
+/* Container */
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding-inline: var(--space-6);
+  width: 100%;
+}
+
+@media (min-width: 720px) {
+  .container { padding-inline: var(--space-8); }
+}
+
+/* Skip link — first focusable element, visually hidden until focused */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: var(--space-4);
+  background: var(--bg-elevated);
+  color: var(--text-primary);
+  border: 1px solid var(--border-default);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-md);
+  font: 500 14px/1 var(--font-sans);
+  text-decoration: none;
+  z-index: var(--z-modal);
+  transition: top var(--dur-fast) var(--ease-out);
+}
+.skip-link:focus { top: var(--space-4); }
+
+/* ─── Language visibility ───────────────────────────────────────────────────── */
+[data-lang="es"] .lang-en { display: none; }
+[data-lang="en"] .lang-es { display: none; }
