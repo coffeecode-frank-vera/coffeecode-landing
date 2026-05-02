@@ -6,10 +6,28 @@ import '@styles/page.css';
   <div class="container">
     <div class="hero-grid">
 
+      <!-- Background glyph: { c:c } at large scale, low opacity -->
+      <svg
+        class="hero-glyph"
+        viewBox="0 0 240 100"
+        fill="none"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <g>
+          <path d="M 50 25 Q 40 25 40 35 L 40 46 Q 40 50 33 50 Q 40 50 40 54 L 40 65 Q 40 75 50 75" stroke="currentColor" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M 61.07 30.85 A 25 25 0 1 0 61.07 69.15" stroke="currentColor" stroke-width="5.5" stroke-linecap="round"/>
+          <circle cx="80" cy="35" r="4.5" fill="currentColor"/>
+          <circle cx="80" cy="65" r="4.5" fill="currentColor"/>
+          <path d="M 131.07 30.85 A 25 25 0 1 0 131.07 69.15" stroke="currentColor" stroke-width="5.5" stroke-linecap="round"/>
+          <path d="M 150 25 Q 160 25 160 35 L 160 46 Q 160 50 167 50 Q 160 50 160 54 L 160 65 Q 160 75 150 75" stroke="currentColor" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </g>
+      </svg>
+
       <!-- Left: statement + CTAs -->
       <div class="hero-left">
 
-        <!-- Wordmark: mobile only — nav shows the mark (cc symbol) on mobile -->
+        <!-- Wordmark: mobile only -->
         <svg
           class="hero-wordmark"
           viewBox="0 0 290 44"
@@ -31,13 +49,13 @@ import '@styles/page.css';
         </p>
 
         <h1 id="hero-headline">
-          <span class="lang-es">Del suelo a producción.</span>
-          <span class="lang-en">Ground to production.</span>
+          <span class="lang-es">Software para empresas donde el código importa.</span>
+          <span class="lang-en">Software for companies where the code matters.</span>
         </h1>
 
         <p class="hero-sub">
-          <span class="lang-es">Construimos software de principio a fin — arquitectura, build, deploy. Sin handoffs, sin equipos rotativos. El criterio está incluido.</span>
-          <span class="lang-en">We build software start to finish — architecture, build, deploy. No handoffs, no rotating teams. Judgment is part of the service.</span>
+          <span class="lang-es">Construimos sistemas que llegan a producción y se quedan.<br class="hero-sub-br" /> No es barato. Es lo que cuesta hacerlo bien.</span>
+          <span class="lang-en">We build systems that ship to production and stay there.<br class="hero-sub-br" /> It's not cheap. That's what doing it right costs.</span>
         </p>
 
         <div class="hero-cta">
@@ -48,19 +66,14 @@ import '@styles/page.css';
         </div>
       </div>
 
-      <!-- Right: studio metadata -->
+      <!-- Right: studio metadata — single stack line -->
       <aside class="hero-meta" aria-label="Datos del estudio / Studio data">
-        <div class="hero-meta-row">
-          <span class="hero-meta-label">lang</span>
-          <span class="hero-meta-val">PHP · C# · JS · Dart · Java</span>
-        </div>
-        <div class="hero-meta-row">
-          <span class="hero-meta-label">fw</span>
-          <span class="hero-meta-val">Flutter · Angular · Astro · .NET · React · Vue · Laravel</span>
-        </div>
-        <div class="hero-meta-row">
-          <span class="hero-meta-label">infra</span>
-          <span class="hero-meta-val">AWS · Azure · DigitalOcean · K8s</span>
+        <div class="hero-meta-row hero-meta-stack">
+          <span class="hero-meta-label">stack</span>
+          <span class="hero-meta-val">
+            <span class="lang-es">Stack elegido por el problema. TS, C#, Postgres por defecto.</span>
+            <span class="lang-en">Stack chosen for the problem. TS, C#, Postgres by default.</span>
+          </span>
         </div>
       </aside>
 
@@ -69,12 +82,38 @@ import '@styles/page.css';
 </section>
 
 <style>
-  /* Desktop: nav already shows the wordmark */
+  /* ─── Background glyph ──────────────────────────────── */
+  .hero {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-glyph {
+    position: absolute;
+    right: -4%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: min(55vw, 640px);
+    height: auto;
+    color: var(--text-primary);
+    opacity: 0.08;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  @media (max-width: 719px) {
+    .hero-glyph {
+      right: -8%;
+      width: min(90vw, 420px);
+      opacity: 0.06;
+    }
+  }
+
+  /* ─── Wordmark (mobile only) ────────────────────────── */
   .hero-wordmark {
     display: none;
   }
 
-  /* Mobile: wordmark + eyebrow centered; h1/sub/cta stay left-aligned for readability */
   @media (max-width: 719px) {
     .hero-wordmark {
       display: block;
@@ -87,5 +126,21 @@ import '@styles/page.css';
     .hero-eyebrow {
       justify-content: center;
     }
+  }
+
+  /* ─── Subhead line break ────────────────────────────── */
+  .hero-sub-br {
+    display: none;
+  }
+
+  @media (min-width: 720px) {
+    .hero-sub-br {
+      display: block;
+    }
+  }
+
+  /* ─── Stack meta row ────────────────────────────────── */
+  .hero-meta-stack .hero-meta-val {
+    font-style: italic;
   }
 </style>
