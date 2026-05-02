@@ -79,6 +79,10 @@ const jsonLd = JSON.stringify({
       rel="stylesheet"
     />
 
+    <!-- Hide English content by default until bootstrap script runs.
+         Prevents both concatenated text in noscript crawlers and FOUC. -->
+    <style>html:not([data-lang]) .lang-en { display: none; }</style>
+
     <!-- Theme + language bootstrap — runs before paint to prevent flash -->
     <script is:inline>
       (() => {
