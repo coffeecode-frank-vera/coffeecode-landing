@@ -1,0 +1,234 @@
+---
+import '@styles/page.css';
+import SectionHead from '@components/SectionHead.astro';
+
+const cases = [
+  {
+    id: 'gov',
+    titleEs: 'Gobierno municipal · Ciudad fronteriza · 250K habitantes',
+    titleEn: 'Municipal government · Border city · 250K residents',
+    bodyEs: 'Modernización digital completa de una administración municipal: app ciudadana con tickets y SLAs por dependencia, plataforma de compras con licitaciones, declaración patrimonial, control de corralón, y herramientas de transición de poderes. Diseñados para sobrevivir cambios de administración — operativos, no decorativos.',
+    bodyEn: 'Full digital modernization of a municipal administration: citizen app with tickets and SLAs by department, procurement platform with tenders, asset disclosure, vehicle impound control, and government transition tools. Built to survive administration changes — operational, not decorative.',
+    metricsEs: '8+ años en producción · Dos cambios de poder atravesados · Operados por personal interno.',
+    metricsEn: '8+ years in production · Two administration changes navigated · Operated by internal staff.',
+  },
+  {
+    id: 'ecom',
+    titleEs: 'E-commerce de catálogos · Estados Unidos · Distribución nacional',
+    titleEn: 'Catalog e-commerce · United States · National distribution',
+    bodyEs: 'Sistema de visualización con detección automática de prendas y sobreposición realista de logos personalizados. Pipeline de procesamiento de imágenes en Python, arquitectura de microservicios sobre AWS.',
+    bodyEn: 'Visualization system with automatic garment detection and realistic overlay of custom logos. Python image processing pipeline, microservices architecture on AWS.',
+    metricsEs: 'En producción sin reescritura desde la entrega · Operación nacional ininterrumpida.',
+    metricsEn: 'In production without rewrite since delivery · Uninterrupted national operation.',
+  },
+  {
+    id: 'hotel',
+    titleEs: 'Operador hotelero global · Plataforma de reservaciones',
+    titleEn: 'Global hotel operator · Reservations platform',
+    bodyEs: 'Modernización de UI sobre una aplicación legacy de reservaciones a gran escala. Migración del frontend en una sola noche, sin downtime ni regresión. Componente de grid de alta densidad desarrollado desde cero, adoptado por la librería interna oficial del cliente.',
+    bodyEn: 'UI modernization over a large-scale legacy reservations application. Frontend migration in a single night, zero downtime, zero regression. High-density grid component built from scratch, adopted into the client\'s official internal library.',
+    metricsEs: 'Componente vigente en librería corporativa · Uso transversal en productos guest-facing e internos.',
+    metricsEn: 'Component active in corporate library · Used across guest-facing and internal products.',
+  },
+];
+
+const statsEs = [
+  { value: '8+', label: 'años · sistema más antiguo en producción' },
+  { value: '3',  label: 'sectores en producción activa' },
+  { value: '2',  label: 'mercados atendidos' },
+  { value: '0',  label: 'reescrituras completas requeridas' },
+];
+
+const statsEn = [
+  { value: '8+', label: 'years · oldest system still in production' },
+  { value: '3',  label: 'sectors in active production' },
+  { value: '2',  label: 'markets served' },
+  { value: '0',  label: 'complete rewrites required' },
+];
+---
+
+<section id="trabajo" class="section">
+  <div class="container">
+    <SectionHead
+      num="§03"
+      label="Trabajo bajo confidencialidad"
+      title="Trabajo bajo confidencialidad."
+      titleEn="Work under confidentiality."
+      lede="La mayoría de nuestros clientes opera bajo NDA. Por eso no encontrarás logos en este sitio. Lo que sí podemos compartir está abajo: casos anonimizados con detalle técnico verificable."
+      ledeEn="Most of our clients operate under NDA. That's why you won't find logos on this site. What we can share is below: anonymized cases with verifiable technical detail."
+    />
+
+    <!-- Case studies -->
+    <div class="cw-cases">
+      {cases.map((c) => (
+        <article class="cw-case" id={`case-${c.id}`}>
+          <header class="cw-case-header">
+            <h3 class="cw-case-title">
+              <span class="lang-es">{c.titleEs}</span>
+              <span class="lang-en">{c.titleEn}</span>
+            </h3>
+          </header>
+          <p class="cw-case-body">
+            <span class="lang-es">{c.bodyEs}</span>
+            <span class="lang-en">{c.bodyEn}</span>
+          </p>
+          <blockquote class="cw-case-metrics">
+            <span class="lang-es">{c.metricsEs}</span>
+            <span class="lang-en">{c.metricsEn}</span>
+          </blockquote>
+        </article>
+      ))}
+    </div>
+
+    <!-- Studio at a glance -->
+    <div class="cw-stats-block">
+      <p class="cw-stats-label t-mono-sm">
+        <span class="lang-es">Estudio en cifras</span>
+        <span class="lang-en">Studio at a glance</span>
+      </p>
+      <dl class="cw-stats">
+        {statsEs.map((s, i) => (
+          <div class="cw-stat">
+            <dd class="cw-stat-value">{s.value}</dd>
+            <dt class="cw-stat-label">
+              <span class="lang-es">{s.label}</span>
+              <span class="lang-en">{statsEn[i].label}</span>
+            </dt>
+          </div>
+        ))}
+      </dl>
+      <p class="cw-stats-note t-mono-sm">
+        <span class="lang-es">Referencias verificables bajo confidencialidad recíproca en sesión de discovery.</span>
+        <span class="lang-en">Verifiable references available under mutual confidentiality during discovery.</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* ─── Cases ──────────────────────────────────────────── */
+  .cw-cases {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-bottom: var(--space-16);
+  }
+
+  .cw-case {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+    padding: var(--space-10) 0;
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  .cw-case:last-child {
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  @media (min-width: 960px) {
+    .cw-case {
+      grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+      grid-template-rows: auto auto;
+      column-gap: var(--space-16);
+    }
+
+    .cw-case-header {
+      grid-column: 1;
+      grid-row: 1;
+    }
+
+    .cw-case-body {
+      grid-column: 2;
+      grid-row: 1 / 3;
+      align-self: start;
+    }
+
+    .cw-case-metrics {
+      grid-column: 1;
+      grid-row: 2;
+      align-self: end;
+    }
+  }
+
+  .cw-case-title {
+    font: 600 15px/1.4 var(--font-sans);
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  .cw-case-body {
+    font: 400 15px/1.65 var(--font-sans);
+    color: var(--text-secondary);
+    margin: 0;
+    text-wrap: pretty;
+  }
+
+  .cw-case-metrics {
+    font: 400 13px/1.6 var(--font-mono);
+    color: var(--text-tertiary);
+    letter-spacing: -0.01em;
+    margin: 0;
+    padding: var(--space-4) var(--space-5);
+    border-left: 2px solid var(--coffee);
+    background: var(--bg-surface);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  }
+
+  /* ─── Stats block ────────────────────────────────────── */
+  .cw-stats-block {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-xl);
+    padding: var(--space-10) var(--space-8);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+
+  .cw-stats-label {
+    margin: 0;
+  }
+
+  .cw-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6) var(--space-8);
+    margin: 0;
+    padding: 0;
+  }
+
+  @media (min-width: 720px) {
+    .cw-stats {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .cw-stat {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .cw-stat-value {
+    font: 600 52px/1 var(--font-mono);
+    color: var(--coffee);
+    letter-spacing: -0.04em;
+    margin: 0;
+  }
+
+  .cw-stat-label {
+    font: 400 12px/1.4 var(--font-mono);
+    color: var(--text-tertiary);
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+
+  .cw-stats-note {
+    margin: 0;
+    border-top: 1px solid var(--border-subtle);
+    padding-top: var(--space-6);
+  }
+</style>
