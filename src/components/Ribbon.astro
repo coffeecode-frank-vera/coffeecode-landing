@@ -4,47 +4,69 @@ import '@styles/page.css';
 const services = [
   {
     num: '01',
-    titleEs: 'Landing pages',
-    titleEn: 'Landing pages',
-    bodyEs: 'Páginas de producto o servicio: rápidas, bien construidas y ajustadas a lo que realmente necesitas.',
-    bodyEn: 'Product and service pages — fast, well-built, scoped to what you actually need.',
+    titleEs: 'Landings y sitios',
+    titleEn: 'Landings and sites',
+    bodyEs: 'Rápidas, bien construidas, entregadas. Precio fijo, alcance definido.',
+    bodyEn: 'Fast, well-built, delivered. Fixed price, defined scope.',
   },
   {
     num: '02',
-    titleEs: 'Aplicaciones a medida',
-    titleEn: 'Custom applications',
-    bodyEs: 'Desde e-commerce hasta sistemas empresariales: desarrollo full stack, de la base de datos a producción.',
-    bodyEn: 'From e-commerce to enterprise systems — full stack, from the database to production.',
+    titleEs: 'Software empresarial',
+    titleEn: 'Enterprise software',
+    bodyEs: 'Full stack de extremo a extremo. Para equipos que pagan lo que vale y exigen que funcione.',
+    bodyEn: 'Full stack end to end. For teams that pay what it costs and demand it works.',
   },
   {
     num: '03',
-    titleEs: 'Consultoría técnica',
-    titleEn: 'Technical consulting',
-    bodyEs: 'Revisión de arquitectura, documentación, corrección de deuda técnica o refuerzo puntual en una tecnología específica.',
-    bodyEn: 'Architecture review, documentation, technical debt cleanup, or focused reinforcement in a specific technology.',
+    titleEs: 'Rescate y consultoría',
+    titleEn: 'Recovery and consulting',
+    bodyEs: 'Deuda técnica, arquitectura rota, equipo quemado. Diagnóstico real, solución real.',
+    bodyEn: 'Technical debt, broken architecture, burned team. Real diagnosis, real fix.',
   },
   {
     num: '04',
-    titleEs: 'Librerías y productos',
-    titleEn: 'Libraries and products',
-    bodyEs: 'Herramientas y paquetes de software construidos para equipos que no quieren reinventar lo mismo dos veces.',
-    bodyEn: 'Software tools and packages built for teams that don\'t want to solve the same problem twice.',
+    titleEs: 'Librerías internas',
+    titleEn: 'Internal libraries',
+    bodyEs: 'Componentes y paquetes custom para ingenieros que no reinventan lo mismo dos veces.',
+    bodyEn: 'Custom components and packages for engineers who don\'t solve the same problem twice.',
   },
 ];
 ---
 
-<div class="ribbon">
-  {services.map((s) => (
-    <div class="ribbon-cell">
-      <span class="ribbon-num">{s.num} /</span>
-      <p class="ribbon-title">
-        <span class="lang-es">{s.titleEs}</span>
-        <span class="lang-en">{s.titleEn}</span>
-      </p>
-      <p class="ribbon-body">
-        <span class="lang-es">{s.bodyEs}</span>
-        <span class="lang-en">{s.bodyEn}</span>
-      </p>
-    </div>
-  ))}
+<div class="ribbon-wrapper">
+  <p class="ribbon-transition">
+    <span class="lang-es">Cuatro formas de trabajar con nosotros. Cuatro maneras de resolver.</span>
+    <span class="lang-en">Four ways to work with us. Four ways to solve.</span>
+  </p>
+  <div class="ribbon">
+    {services.map((s) => (
+      <div class="ribbon-cell">
+        <span class="ribbon-num">{s.num} /</span>
+        <p class="ribbon-title">
+          <span class="lang-es">{s.titleEs}</span>
+          <span class="lang-en">{s.titleEn}</span>
+        </p>
+        <p class="ribbon-body">
+          <span class="lang-es">{s.bodyEs}</span>
+          <span class="lang-en">{s.bodyEn}</span>
+        </p>
+      </div>
+    ))}
+  </div>
 </div>
+
+<style>
+  .ribbon-transition {
+    font: 400 13px/1.4 var(--font-mono);
+    color: var(--text-tertiary);
+    letter-spacing: -0.01em;
+    margin: 0 0 var(--space-6);
+    padding: 0 var(--space-6);
+  }
+
+  @media (min-width: 720px) {
+    .ribbon-transition {
+      padding: 0 var(--space-8);
+    }
+  }
+</style>
