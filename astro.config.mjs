@@ -2,8 +2,8 @@ import { defineConfig } from 'astro/config';
 
 export default defineConfig({
   output: 'static',
-  site: 'https://coffeecode-frank-vera.github.io',
-  base: '/coffeecode-landing',
+  site: 'https://coffeecode.com.mx',
+  base: '/',
   build: {
     inlineStylesheets: 'auto',
   },
