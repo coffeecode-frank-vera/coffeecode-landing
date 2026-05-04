@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#F2EEE5"/>
+
+  <!-- Vertical divider -->
+  <line x1="660" y1="72" x2="660" y2="578" stroke="#DDD3C2" stroke-width="1"/>
+
+  <!-- Bottom separator -->
+  <line x1="0" y1="578" x2="1200" y2="578" stroke="#DDD3C2" stroke-width="1"/>
+
+  <!-- ─── LEFT: wordmark + headline + description ─── -->
+
+  <!-- Logo symbol: { cc } constructed from paths -->
+  <g transform="translate(80, 78)">
+    <!-- Left bracket -->
+    <path d="M 29 14 Q 23 14 23 20 L 23 27 Q 23 29 19 29 Q 23 29 23 31 L 23 38 Q 23 44 29 44" stroke="#5C5448" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <!-- C (coffee) -->
+    <path d="M 58.6 17.9 A 14.5 14.5 0 1 0 58.6 40.1" stroke="#B85015" stroke-width="3.2" stroke-linecap="round" fill="none"/>
+    <circle cx="69" cy="20" r="2.6" fill="#8E867A"/>
+    <circle cx="69" cy="38" r="2.6" fill="#8E867A"/>
+    <!-- C (code) -->
+    <path d="M 99.2 17.9 A 14.5 14.5 0 1 0 99.2 40.1" stroke="#15803D" stroke-width="3.2" stroke-linecap="round" fill="none"/>
+    <!-- Right bracket -->
+    <path d="M 110 14 Q 116 14 116 20 L 116 27 Q 116 29 120 29 Q 116 29 116 31 L 116 38 Q 116 44 110 44" stroke="#5C5448" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+    <!-- Wordmark text -->
+    <text x="136" y="38" font-family="'IBM Plex Mono', 'Fira Code', monospace" font-size="31" font-weight="600" letter-spacing="-0.5">
+      <tspan fill="#5C5448">{</tspan><tspan fill="#8E867A" dx="2"> </tspan><tspan fill="#B85015">coffee</tspan><tspan fill="#8E867A">:</tspan><tspan fill="#8E867A"> </tspan><tspan fill="#15803D">code</tspan><tspan fill="#8E867A" dx="2"> </tspan><tspan fill="#5C5448">}</tspan>
+    </text>
+  </g>
+
+  <!-- Headline -->
+  <text x="80" y="228" font-family="'IBM Plex Sans', system-ui, sans-serif" font-size="60" font-weight="600" fill="#1A1410" letter-spacing="-1.5">Craft Software</text>
+  <text x="80" y="296" font-family="'IBM Plex Sans', system-ui, sans-serif" font-size="60" font-weight="600" fill="#1A1410" letter-spacing="-1.5">Studio.</text>
+
+  <!-- Rule -->
+  <line x1="80" y1="326" x2="540" y2="326" stroke="#DDD3C2" stroke-width="1"/>
+
+  <!-- Description -->
+  <text x="80" y="362" font-family="'IBM Plex Sans', system-ui, sans-serif" font-size="19" font-weight="400" fill="#7A6E62">Landing pages, aplicaciones a medida</text>
+  <text x="80" y="390" font-family="'IBM Plex Sans', system-ui, sans-serif" font-size="19" font-weight="400" fill="#7A6E62">y consultoría técnica.</text>
+
+  <!-- Location -->
+  <text x="80" y="450" font-family="'IBM Plex Mono', monospace" font-size="13" fill="#9B8B78" letter-spacing="0.5">// Nogales, Sonora, México</text>
+
+  <!-- URL -->
+  <text x="80" y="610" font-family="'IBM Plex Mono', monospace" font-size="15" font-weight="400" fill="#B85015" letter-spacing="0.3">coffeecode.com.mx</text>
+
+  <!-- ─── RIGHT: Terminal code card ─── -->
+  <rect x="700" y="90" width="420" height="385" rx="10" fill="#FAF7F0" stroke="#DDD3C2" stroke-width="1"/>
+
+  <!-- Card header bg -->
+  <rect x="700" y="90" width="420" height="40" rx="10" fill="#EDE8DE"/>
+  <rect x="700" y="118" width="420" height="12" fill="#EDE8DE"/>
+
+  <!-- Coffee top accent -->
+  <rect x="700" y="90" width="420" height="3" rx="1.5" fill="#B85015"/>
+
+  <!-- Header separator -->
+  <line x1="700" y1="130" x2="1120" y2="130" stroke="#DDD3C2" stroke-width="1"/>
+
+  <!-- Mac dots -->
+  <circle cx="724" cy="110" r="5" fill="#FF5F57"/>
+  <circle cx="744" cy="110" r="5" fill="#FFBD2E"/>
+  <circle cx="764" cy="110" r="5" fill="#28C840"/>
+
+  <!-- Filename -->
+  <text x="784" y="116" font-family="'IBM Plex Mono', monospace" font-size="12" fill="#8E867A">deploy.ts</text>
+
+  <!-- Code lines -->
+  <text x="722" y="162" font-family="'IBM Plex Mono', monospace" font-size="13.5" fill="#9B8B78">// construido para el mundo real</text>
+
+  <text x="722" y="190" font-family="'IBM Plex Mono', monospace" font-size="13.5" fill="#1A1410">
+    <tspan fill="#15803D">export async function </tspan><tspan fill="#1A1410">deploy</tspan><tspan fill="#7A6E62">(</tspan>
+  </text>
+
+  <text x="748" y="216" font-family="'IBM Plex Mono', monospace" font-size="13.5" fill="#1A1410">
+    <tspan fill="#7A6E62">app: </tspan><tspan fill="#B85015">Application</tspan><tspan fill="#7A6E62">,</tspan>
+  </text>
+
+  <text x="748" y="242" font-family="'IBM Plex Mono', monospace" font-size="13.5" fill="#1A1410">
+    <tspan fill="#7A6E62">env: </tspan><tspan fill="#B85015">Environment</tspan><tspan fill="#7A6E62">,</tspan>
+  </text>
+
+  <text x="722" y="268" font-family="'IBM Plex Mono', monospace" font-size="13.5" fill="#1A1410">
+    <tspan fill="#7A6E62">): </tspan><tspan fill="#B85015">Promise</tspan><tspan fill="#7A6E62">&lt;</tspan><tspan fill="#B85015">DeployResult</tspan><tspan fill="#7A6E62">&gt; {</tspan>
+  </text>
+
+  <text x="748" y="294" font-family="'IBM Plex Mono', monospace" font-size="13.5" fill="#1A1410">
+    <tspan fill="#15803D">await </tspan><tspan fill="#1A1410">runChecks</tspan><tspan fill="#7A6E62">(app)</tspan>
+  </text>
+
+  <text x="748" y="320" font-family="'IBM Plex Mono', monospace" font-size="13.5" fill="#1A1410">
+    <tspan fill="#15803D">await </tspan><tspan fill="#1A1410">runTests</tspan><tspan fill="#7A6E62">(app)</tspan>
+  </text>
+
+  <!-- Highlighted return line -->
+  <rect x="734" y="330" width="372" height="26" rx="3" fill="#15803D" fill-opacity="0.1"/>
+  <text x="748" y="348" font-family="'IBM Plex Mono', monospace" font-size="13.5" fill="#1A1410">
+    <tspan fill="#15803D">return </tspan><tspan fill="#1A1410">ship</tspan><tspan fill="#7A6E62">(app, env)</tspan>
+  </text>
+
+  <text x="722" y="374" font-family="'IBM Plex Mono', monospace" font-size="13.5" fill="#7A6E62">}</text>
+
+  <!-- Card footer -->
+  <line x1="700" y1="398" x2="1120" y2="398" stroke="#E8E0D4" stroke-width="1"/>
+  <text x="722" y="424" font-family="'IBM Plex Mono', monospace" font-size="11.5" fill="#9B8B78">ships to production and stays there.</text>
+
+</svg>
