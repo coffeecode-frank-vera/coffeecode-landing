@@ -9,9 +9,10 @@ interface Props {
   lang?: Lang;
   title?: string;
   description?: string;
+  isHomepage?: boolean;
 }
 
-const { lang = 'es' } = Astro.props;
+const { lang = 'es', isHomepage = false } = Astro.props;
 
 const isEn = lang === 'en';
 
@@ -45,29 +46,88 @@ const ogDescription = isEn
 
 const skipLabel = isEn ? 'Skip to content' : 'Saltar al contenido';
 
-const jsonLd = JSON.stringify({
+const siteUrl = `${siteOrigin}${base}`;
+
+const jsonLdProfessionalService = JSON.stringify({
   '@context': 'https://schema.org',
   '@type': 'ProfessionalService',
   name: 'Coffee Code',
-  url: `${siteOrigin}${base}/`,
-  description: 'Craft software studio in Nogales, Sonora, México. End-to-end software development, technical consulting, and fixed-price landing pages.',
+  alternateName: '{ coffee: code }',
+  description: 'Estudio de software en Nogales, Sonora. Sistemas de extremo a extremo: landing pages, software empresarial, consultoría técnica.',
+  url: `${siteUrl}/`,
+  logo: `${siteUrl}/og-image.png`,
+  image: `${siteUrl}/og-image.png`,
+  telephone: '+526311484433',
+  email: 'contact@coffeecode.com.mx',
+  priceRange: '$$',
   address: {
     '@type': 'PostalAddress',
     addressLocality: 'Nogales',
     addressRegion: 'Sonora',
     addressCountry: 'MX',
   },
-  contactPoint: {
-    '@type': 'ContactPoint',
-    email: 'contact@coffeecode.com.mx',
-    contactType: 'customer service',
-  },
-  areaServed: ['MX', 'US'],
-  serviceType: ['Software Development', 'Technical Consulting', 'Landing Page Development'],
-  sameAs: [
-    'https://github.com/coffeecode-studio',
+  areaServed: [
+    { '@type': 'Country', name: 'Mexico' },
+    { '@type': 'Country', name: 'United States' },
   ],
+  knowsLanguage: ['es', 'en'],
 });
+
+const jsonLdWebSite = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'Coffee Code',
+  url: `${siteUrl}/`,
+  inLanguage: ['es-MX', 'en'],
+});
+
+const jsonLdServices = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    serviceType: 'Web Development',
+    provider: { '@type': 'ProfessionalService', name: 'Coffee Code' },
+    name: 'Landing Esencial',
+    description: 'Landing de una página con diseño responsive, accesibilidad AA, SEO técnico y deploy incluido.',
+    areaServed: { '@type': 'Country', name: 'Mexico' },
+    offers: {
+      '@type': 'Offer',
+      price: '15000',
+      priceCurrency: 'MXN',
+      url: `${siteUrl}/#precios`,
+    },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    serviceType: 'Web Development',
+    provider: { '@type': 'ProfessionalService', name: 'Coffee Code' },
+    name: 'Landing Profesional',
+    description: 'Landing multi-página con CMS opcional, integraciones y soporte post-lanzamiento.',
+    areaServed: { '@type': 'Country', name: 'Mexico' },
+    offers: {
+      '@type': 'Offer',
+      price: '20000',
+      priceCurrency: 'MXN',
+      url: `${siteUrl}/#precios`,
+    },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    serviceType: 'Web Development',
+    provider: { '@type': 'ProfessionalService', name: 'Coffee Code' },
+    name: 'Landing Corporativo',
+    description: 'Sitio de marca + plataforma editorial con CMS completo, roles editoriales y soporte post-lanzamiento.',
+    areaServed: { '@type': 'Country', name: 'Mexico' },
+    offers: {
+      '@type': 'Offer',
+      price: '25000',
+      priceCurrency: 'MXN',
+      url: `${siteUrl}/#precios`,
+    },
+  },
+].map((s) => JSON.stringify(s));
 ---
 
 <!doctype html>
@@ -83,7 +143,7 @@ const jsonLd = JSON.stringify({
     <link rel="canonical" href={canonicalUrl} />
 
     <!-- hreflang alternates — tell Google both language versions exist -->
-    <link rel="alternate" hreflang="es" href={hreflangEs} />
+    <link rel="alternate" hreflang="es-MX" href={hreflangEs} />
     <link rel="alternate" hreflang="en" href={hreflangEn} />
     <link rel="alternate" hreflang="x-default" href={hreflangEs} />
 
@@ -134,7 +194,11 @@ const jsonLd = JSON.stringify({
     <ClientRouter />
 
     <!-- Structured data -->
-    <script type="application/ld+json" is:inline set:html={jsonLd} />
+    <script type="application/ld+json" is:inline set:html={jsonLdProfessionalService} />
+    {isHomepage && <script type="application/ld+json" is:inline set:html={jsonLdWebSite} />}
+    {isHomepage && jsonLdServices.map((s) => (
+      <script type="application/ld+json" is:inline set:html={s} />
+    ))}
   </head>
   <body>
     <a href="#main-content" class="skip-link">{skipLabel}</a>

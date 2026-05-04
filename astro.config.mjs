@@ -2,7 +2,15 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  integrations: [sitemap()],
+  integrations: [
+    sitemap({
+      i18n: {
+        defaultLocale: 'es',
+        locales: { es: 'es-MX', en: 'en' },
+      },
+      filter: (page) => !page.includes('/draft/'),
+    }),
+  ],
   output: 'static',
   site: 'https://coffeecode.com.mx',
   base: '/',
