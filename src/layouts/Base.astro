@@ -3,29 +3,54 @@ import { ClientRouter } from 'astro:transitions';
 import '@styles/tokens.css';
 import '@styles/global.css';
 
+export type Lang = 'es' | 'en';
+
 interface Props {
+  lang?: Lang;
   title?: string;
   description?: string;
 }
 
-const {
-  title = 'Coffee Code — Craft Software Studio',
-  description = 'Desarrollamos software de extremo a extremo. Landing pages, aplicaciones a medida y consultoría técnica.',
-} = Astro.props;
+const { lang = 'es' } = Astro.props;
 
-const descriptionEn = 'End-to-end software development. Landing pages, custom applications, and technical consulting.';
+const isEn = lang === 'en';
+
+const title = isEn
+  ? (Astro.props.title ?? 'Coffee Code — Craft Software Studio')
+  : (Astro.props.title ?? 'Coffee Code — Craft Software Studio');
+
+const description = isEn
+  ? (Astro.props.description ?? 'Software studio based in Nogales, Sonora, México. End-to-end development: fixed-price landing pages, custom applications, and technical consulting.')
+  : (Astro.props.description ?? 'Estudio de software en Nogales, Sonora, México. Desarrollamos sistemas de extremo a extremo — landing pages a precio fijo, aplicaciones a medida y consultoría técnica.');
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const siteOrigin = Astro.site ? Astro.site.origin : 'https://coffeecode.com.mx';
-const siteUrl = `${siteOrigin}${base}/`;
+
+// Canonical URL for this specific language page
+const canonicalUrl = isEn ? `${siteOrigin}${base}/en/` : `${siteOrigin}${base}/`;
+
+// hreflang alternates
+const hreflangEs = `${siteOrigin}${base}/`;
+const hreflangEn = `${siteOrigin}${base}/en/`;
+
 const ogImage = `${siteOrigin}${base}/og-image.png`;
+
+const ogTitle = isEn
+  ? 'Coffee Code — Craft Software Studio'
+  : 'Coffee Code — Craft Software Studio';
+
+const ogDescription = isEn
+  ? 'End-to-end software development. Landing pages, custom applications, and technical consulting.'
+  : 'Desarrollamos software de extremo a extremo. Landing pages, aplicaciones a medida y consultoría técnica.';
+
+const skipLabel = isEn ? 'Skip to content' : 'Saltar al contenido';
 
 const jsonLd = JSON.stringify({
   '@context': 'https://schema.org',
-  '@type': 'Organization',
+  '@type': 'ProfessionalService',
   name: 'Coffee Code',
-  url: siteUrl,
-  description: 'Craft software studio. End-to-end software development, technical consulting, and landing pages.',
+  url: `${siteOrigin}${base}/`,
+  description: 'Craft software studio in Nogales, Sonora, México. End-to-end software development, technical consulting, and fixed-price landing pages.',
   address: {
     '@type': 'PostalAddress',
     addressLocality: 'Nogales',
@@ -37,20 +62,30 @@ const jsonLd = JSON.stringify({
     email: 'contact@coffeecode.com.mx',
     contactType: 'customer service',
   },
-  sameAs: [],
+  areaServed: ['MX', 'US'],
+  serviceType: ['Software Development', 'Technical Consulting', 'Landing Page Development'],
+  sameAs: [
+    'https://github.com/coffeecode-studio',
+  ],
 });
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" id="meta-desc" content={description} data-desc-es={description} data-desc-en={descriptionEn} />
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
     <title>{title}</title>
 
     <!-- Canonical -->
-    <link rel="canonical" href={siteUrl} />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- hreflang alternates — tell Google both language versions exist -->
+    <link rel="alternate" hreflang="es" href={hreflangEs} />
+    <link rel="alternate" hreflang="en" href={hreflangEn} />
+    <link rel="alternate" hreflang="x-default" href={hreflangEs} />
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
@@ -59,17 +94,19 @@ const jsonLd = JSON.stringify({
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content={siteUrl} />
-    <meta property="og:title" content="Coffee Code — Craft Software Studio" />
-    <meta property="og:description" content="Desarrollamos software de extremo a extremo. Landing pages, aplicaciones a medida y consultoría técnica." />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={ogTitle} />
+    <meta property="og:description" content={ogDescription} />
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content={isEn ? 'en_US' : 'es_MX'} />
+    <meta property="og:site_name" content="Coffee Code" />
 
     <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Coffee Code — Craft Software Studio" />
-    <meta name="twitter:description" content="Desarrollamos software de extremo a extremo. Landing pages, aplicaciones a medida y consultoría técnica." />
+    <meta name="twitter:title" content={ogTitle} />
+    <meta name="twitter:description" content={ogDescription} />
     <meta name="twitter:image" content={ogImage} />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -79,37 +116,19 @@ const jsonLd = JSON.stringify({
       rel="stylesheet"
     />
 
-    <!-- Hide English content by default until bootstrap script runs.
-         Prevents both concatenated text in noscript crawlers and FOUC. -->
-    <style>html:not([data-lang]) .lang-en { display: none; }</style>
-
-    <!-- Theme + language bootstrap — runs before paint to prevent flash -->
+    <!-- Theme bootstrap — runs before paint to prevent flash.
+         Language is now static per page; only theme needs JS detection.
+         astro:after-swap re-applies on every view-transition navigation. -->
     <script is:inline>
-      (() => {
-        // Theme: system preference, fallback dark
+      function applyTheme() {
         const storedTheme = localStorage.getItem('theme');
         const sysLight = matchMedia('(prefers-color-scheme: light)').matches;
         const theme = storedTheme || (sysLight ? 'light' : 'dark');
         document.documentElement.setAttribute('data-theme', theme);
         document.documentElement.setAttribute('data-palette', 'arriesgado');
-
-        // Language: system preference, fallback Spanish
-        const storedLang = localStorage.getItem('lang');
-        let lang = storedLang;
-        if (!lang) {
-          const navLang = (navigator.language || '').toLowerCase();
-          lang = navLang.startsWith('en') ? 'en' : 'es';
-        }
-        document.documentElement.setAttribute('data-lang', lang);
-        document.documentElement.lang = lang;
-
-        // Update meta description
-        const metaDesc = document.getElementById('meta-desc');
-        if (metaDesc) {
-          const desc = metaDesc.getAttribute('data-desc-' + lang);
-          if (desc) metaDesc.setAttribute('content', desc);
-        }
-      })();
+      }
+      applyTheme();
+      document.addEventListener('astro:after-swap', applyTheme);
     </script>
 
     <ClientRouter />
@@ -118,10 +137,7 @@ const jsonLd = JSON.stringify({
     <script type="application/ld+json" is:inline set:html={jsonLd} />
   </head>
   <body>
-    <a href="#main-content" class="skip-link">
-      <span class="lang-es">Saltar al contenido</span>
-      <span class="lang-en">Skip to content</span>
-    </a>
+    <a href="#main-content" class="skip-link">{skipLabel}</a>
     <slot />
   </body>
 </html>

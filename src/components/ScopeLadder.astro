@@ -1,6 +1,14 @@
 ---
 import '@styles/pricing.css';
 import SectionHead from './SectionHead.astro';
+import type { Lang } from '@layouts/Base.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const isEn = lang === 'en';
 
 const tiers = [
   {
@@ -41,6 +49,7 @@ const tiers = [
 <section id="como-funciona" class="section">
   <div class="container">
     <SectionHead
+      lang={lang}
       num="§01"
       label="Scope"
       title="¿Qué construimos?"
@@ -54,14 +63,8 @@ const tiers = [
         <div class="scope-rung">
           <span class="scope-tag">{tier.tag}</span>
           <div>
-            <p class="scope-name">
-              <span class="lang-es">{tier.nameEs}</span>
-              <span class="lang-en">{tier.nameEn}</span>
-            </p>
-            <p class="scope-desc">
-              <span class="lang-es">{tier.descEs}</span>
-              <span class="lang-en">{tier.descEn}</span>
-            </p>
+            <p class="scope-name">{isEn ? tier.nameEn : tier.nameEs}</p>
+            <p class="scope-desc">{isEn ? tier.descEn : tier.descEs}</p>
           </div>
           <span class="scope-meta">{tier.meta}</span>
         </div>

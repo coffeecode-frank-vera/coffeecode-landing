@@ -85,7 +85,7 @@ header {
 }
 .hero h1 {
   margin: 0;
-  font: 500 clamp(38px, 7.5vw, 72px)/1.02 var(--font-sans);
+  font: 600 clamp(38px, 7.5vw, 72px)/1.02 var(--font-sans);
   letter-spacing: -0.035em;
   color: var(--text-primary);
   text-wrap: balance;

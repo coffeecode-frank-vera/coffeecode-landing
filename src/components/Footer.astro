@@ -1,14 +1,22 @@
 ---
 import '@styles/page.css';
+import type { Lang } from '@layouts/Base.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const isEn = lang === 'en';
 ---
 
-<footer class="foot" aria-label="Pie de página / Footer">
+<footer class="foot" aria-label={isEn ? 'Footer' : 'Pie de página'}>
   <div class="container">
     <div class="foot-grid">
 
       <!-- Brand block -->
       <div class="foot-col foot-brand">
-        <a href="/" aria-label="Coffee Code — inicio / home">
+        <a href={isEn ? '/en/' : '/'} aria-label={isEn ? 'Coffee Code — home' : 'Coffee Code — inicio'}>
           <svg
             class="foot-wordmark"
             viewBox="0 0 290 44"
@@ -25,38 +33,19 @@ import '@styles/page.css';
           </svg>
         </a>
         <p class="foot-tagline">
-          <span class="lang-es">Software studio. Sistemas que llegan a producción y se quedan.</span>
-          <span class="lang-en">Software studio. Systems that ship and stay.</span>
+          {isEn ? 'Software studio. Systems that ship and stay.' : 'Software studio. Sistemas que llegan a producción y se quedan.'}
         </p>
         <p class="foot-copy">&copy; {new Date().getFullYear()} Coffee Code</p>
       </div>
 
       <!-- Studio links -->
-      <nav class="foot-col" aria-label="Secciones del sitio / Site sections">
-        <h4>
-          <span class="lang-es">Estudio</span>
-          <span class="lang-en">Studio</span>
-        </h4>
-        <a href="#quienes-somos">
-          <span class="lang-es">Nosotros</span>
-          <span class="lang-en">About</span>
-        </a>
-        <a href="#filosofia">
-          <span class="lang-es">Filosofía</span>
-          <span class="lang-en">Philosophy</span>
-        </a>
-        <a href="#trabajo">
-          <span class="lang-es">Trabajo</span>
-          <span class="lang-en">Work</span>
-        </a>
-        <a href="#precios">
-          <span class="lang-es">Precios</span>
-          <span class="lang-en">Pricing</span>
-        </a>
-        <a href="#contacto">
-          <span class="lang-es">Contacto</span>
-          <span class="lang-en">Contact</span>
-        </a>
+      <nav class="foot-col" aria-label={isEn ? 'Site sections' : 'Secciones del sitio'}>
+        <h4>{isEn ? 'Studio' : 'Estudio'}</h4>
+        <a href="#quienes-somos">{isEn ? 'About' : 'Nosotros'}</a>
+        <a href="#filosofia">{isEn ? 'Philosophy' : 'Filosofía'}</a>
+        <a href="#trabajo">{isEn ? 'Work' : 'Trabajo'}</a>
+        <a href="#precios">{isEn ? 'Pricing' : 'Precios'}</a>
+        <a href="#contacto">{isEn ? 'Contact' : 'Contacto'}</a>
       </nav>
 
     </div>

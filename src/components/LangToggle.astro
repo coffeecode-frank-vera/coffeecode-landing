@@ -1,48 +1,43 @@
 ---
+import type { Lang } from '@layouts/Base.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+
+const isEn = lang === 'en';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const esHref = `${base}/`;
+const enHref = `${base}/en/`;
 ---
 
-<button class="btn btn-ghost lang-toggle" aria-label="Cambiar idioma / Switch language">
-  <span class="lt-opt" data-opt="es">ES</span>
+<nav class="lang-switcher" aria-label={isEn ? 'Language' : 'Idioma'}>
+  <a
+    href={esHref}
+    class:list={['lt-opt', { 'is-active': !isEn }]}
+    aria-current={!isEn ? 'page' : undefined}
+    hreflang="es"
+    lang="es"
+  >ES</a>
   <span class="lt-sep" aria-hidden="true">/</span>
-  <span class="lt-opt" data-opt="en">EN</span>
-</button>
-
-<script>
-  function syncLang() {
-    const lang = document.documentElement.getAttribute('data-lang') ?? 'es';
-    document.querySelectorAll('.lt-opt').forEach((el) => {
-      el.classList.toggle('is-active', (el as HTMLElement).dataset.opt === lang);
-    });
-  }
-
-  syncLang();
-
-  const toggle = document.querySelector('.lang-toggle') as HTMLButtonElement;
-  const html = document.documentElement;
-
-  toggle?.addEventListener('click', () => {
-    const next = html.getAttribute('data-lang') === 'es' ? 'en' : 'es';
-    html.setAttribute('data-lang', next);
-    html.lang = next;
-    localStorage.setItem('lang', next);
-    syncLang();
-
-    const metaDesc = document.getElementById('meta-desc');
-    if (metaDesc) {
-      const desc = metaDesc.getAttribute('data-desc-' + next);
-      if (desc) metaDesc.setAttribute('content', desc);
-    }
-  });
-</script>
+  <a
+    href={enHref}
+    class:list={['lt-opt', { 'is-active': isEn }]}
+    aria-current={isEn ? 'page' : undefined}
+    hreflang="en"
+    lang="en"
+  >EN</a>
+</nav>
 
 <style>
-  .lang-toggle {
-    font: 500 12px/1 var(--font-mono);
-    letter-spacing: 0.05em;
+  .lang-switcher {
     display: flex;
     align-items: center;
     gap: var(--space-1);
-    padding: var(--space-1) var(--space-2);
+    font: 500 12px/1 var(--font-mono);
+    letter-spacing: 0.05em;
   }
 
   .lt-sep {
@@ -53,6 +48,7 @@
     color: var(--text-tertiary);
     padding: var(--space-1) var(--space-2);
     border-radius: var(--radius-sm);
+    text-decoration: none;
     transition:
       color var(--dur-fast) var(--ease-out),
       background var(--dur-fast) var(--ease-out);
@@ -62,5 +58,9 @@
     color: var(--text-primary);
     background: var(--bg-elevated);
     font-weight: 600;
+  }
+
+  .lt-opt:hover:not(.is-active) {
+    color: var(--text-secondary);
   }
 </style>

@@ -1,12 +1,22 @@
 ---
 import SectionHead from './SectionHead.astro';
+import type { Lang } from '@layouts/Base.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const isEn = lang === 'en';
 ---
 
 <section id="contacto" class="section" data-section>
   <div class="container">
     <SectionHead
+      lang={lang}
       num="§05"
       label="Contacto"
+      labelEn="Contact"
       title="El siguiente paso es una conversación."
       titleEn="The next step is a conversation."
       lede="Comparte los detalles básicos del proyecto y acordamos un horario. Sin formularios de pre-calificación, sin respuestas automáticas."
@@ -18,37 +28,21 @@ import SectionHead from './SectionHead.astro';
       <div class="contact-aside">
         <p class="contact-intro">
           <span class="contact-intro-dot" aria-hidden="true"></span>
-          <span class="lang-es">La información que envíes aquí define la agenda de la primera llamada.</span>
-          <span class="lang-en">What you send here sets the agenda for the first call.</span>
+          {isEn ? 'What you send here sets the agenda for the first call.' : 'La información que envíes aquí define la agenda de la primera llamada.'}
         </p>
 
         <div class="contact-meta-card">
           <div class="contact-meta">
             <div class="contact-meta-row">
-              <span class="contact-meta-label">
-                <span class="lang-es">Respuesta</span>
-                <span class="lang-en">Response</span>
-              </span>
-              <span class="contact-meta-val">
-                <span class="lang-es">Antes del siguiente día hábil</span>
-                <span class="lang-en">Before the next business day</span>
-              </span>
+              <span class="contact-meta-label">{isEn ? 'Response' : 'Respuesta'}</span>
+              <span class="contact-meta-val">{isEn ? 'Before the next business day' : 'Antes del siguiente día hábil'}</span>
             </div>
             <div class="contact-meta-row">
-              <span class="contact-meta-label">
-                <span class="lang-es">Zona horaria</span>
-                <span class="lang-en">Time zone</span>
-              </span>
-              <span class="contact-meta-val">
-                <span class="lang-es">Sonora (UTC−7)</span>
-                <span class="lang-en">Sonora (UTC−7)</span>
-              </span>
+              <span class="contact-meta-label">{isEn ? 'Time zone' : 'Zona horaria'}</span>
+              <span class="contact-meta-val">Sonora (UTC−7)</span>
             </div>
             <div class="contact-meta-row">
-              <span class="contact-meta-label">
-                <span class="lang-es">Correo</span>
-                <span class="lang-en">Email</span>
-              </span>
+              <span class="contact-meta-label">{isEn ? 'Email' : 'Correo'}</span>
               <span class="contact-meta-val">
                 <a href="mailto:contact@coffeecode.com.mx" class="contact-meta-email">contact@coffeecode.com.mx</a>
               </span>
@@ -69,8 +63,10 @@ import SectionHead from './SectionHead.astro';
           <!-- Error banner -->
           <div id="contact-error" class="contact-error" role="alert" aria-live="polite" hidden>
             <p>
-              <span class="lang-es">No se pudo enviar el formulario. Escríbenos directamente a <a href="mailto:contact@coffeecode.com.mx">contact@coffeecode.com.mx</a> con los mismos datos.</span>
-              <span class="lang-en">The form didn't go through. Write to us directly at <a href="mailto:contact@coffeecode.com.mx">contact@coffeecode.com.mx</a> with the same details.</span>
+              {isEn
+                ? <span>The form didn't go through. Write to us directly at <a href="mailto:contact@coffeecode.com.mx">contact@coffeecode.com.mx</a> with the same details.</span>
+                : <span>No se pudo enviar el formulario. Escríbenos directamente a <a href="mailto:contact@coffeecode.com.mx">contact@coffeecode.com.mx</a> con los mismos datos.</span>
+              }
             </p>
           </div>
 
@@ -85,11 +81,10 @@ import SectionHead from './SectionHead.astro';
             <input type="hidden" name="subject" value="Nueva solicitud — Coffee Code" />
             <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" aria-hidden="true" />
 
-            <!-- 1. Nombre completo -->
+            <!-- 1. Name -->
             <div class="form-group">
               <label class="form-label" for="contact-name">
-                <span class="lang-es">Nombre completo</span>
-                <span class="lang-en">Full name</span>
+                {isEn ? 'Full name' : 'Nombre completo'}
               </label>
               <input
                 id="contact-name"
@@ -98,18 +93,15 @@ import SectionHead from './SectionHead.astro';
                 class="input"
                 required
                 aria-required="true"
-                data-placeholder-es="Tu nombre tal como aparece en tus comunicaciones"
-                data-placeholder-en="Your name as it appears in your communications"
-                placeholder="Tu nombre tal como aparece en tus comunicaciones"
+                placeholder={isEn ? 'Your name as it appears in your communications' : 'Tu nombre tal como aparece en tus comunicaciones'}
                 autocomplete="name"
               />
             </div>
 
-            <!-- 2. Contacto -->
+            <!-- 2. Contact -->
             <div class="form-group">
               <label class="form-label" for="contact-contact">
-                <span class="lang-es">Contacto</span>
-                <span class="lang-en">Contact</span>
+                {isEn ? 'Contact' : 'Contacto'}
               </label>
               <input
                 id="contact-contact"
@@ -118,68 +110,56 @@ import SectionHead from './SectionHead.astro';
                 class="input"
                 required
                 aria-required="true"
-                data-placeholder-es="Correo electrónico o número de teléfono"
-                data-placeholder-en="Email address or phone number"
-                placeholder="Correo electrónico o número de teléfono"
+                placeholder={isEn ? 'Email address or phone number' : 'Correo electrónico o número de teléfono'}
                 autocomplete="email"
               />
               <p class="form-helper">
-                <span class="lang-es">Escribe el canal por el que prefieres recibir la confirmación.</span>
-                <span class="lang-en">Use whichever channel you want us to reply on.</span>
+                {isEn ? 'Use whichever channel you want us to reply on.' : 'Escribe el canal por el que prefieres recibir la confirmación.'}
               </p>
             </div>
 
-            <!-- 3. Días disponibles -->
+            <!-- 3. Available days -->
             <div class="form-group">
               <fieldset class="days-fieldset">
                 <legend class="form-label">
-                  <span class="lang-es">Días disponibles</span>
-                  <span class="lang-en">Available days</span>
+                  {isEn ? 'Available days' : 'Días disponibles'}
                 </legend>
                 <p class="form-helper days-helper">
-                  <span class="lang-es">Selecciona todos los que aplican.</span>
-                  <span class="lang-en">Select all that apply.</span>
+                  {isEn ? 'Select all that apply.' : 'Selecciona todos los que aplican.'}
                 </p>
                 <div class="days-pills" role="group">
                   <label class="day-pill">
                     <input type="checkbox" name="days[]" value="lunes" />
-                    <span class="lang-es">Lunes</span>
-                    <span class="lang-en">Monday</span>
+                    {isEn ? 'Monday' : 'Lunes'}
                   </label>
                   <label class="day-pill">
                     <input type="checkbox" name="days[]" value="martes" />
-                    <span class="lang-es">Martes</span>
-                    <span class="lang-en">Tuesday</span>
+                    {isEn ? 'Tuesday' : 'Martes'}
                   </label>
                   <label class="day-pill">
                     <input type="checkbox" name="days[]" value="miercoles" />
-                    <span class="lang-es">Miércoles</span>
-                    <span class="lang-en">Wednesday</span>
+                    {isEn ? 'Wednesday' : 'Miércoles'}
                   </label>
                   <label class="day-pill">
                     <input type="checkbox" name="days[]" value="jueves" />
-                    <span class="lang-es">Jueves</span>
-                    <span class="lang-en">Thursday</span>
+                    {isEn ? 'Thursday' : 'Jueves'}
                   </label>
                   <label class="day-pill">
                     <input type="checkbox" name="days[]" value="viernes" />
-                    <span class="lang-es">Viernes</span>
-                    <span class="lang-en">Friday</span>
+                    {isEn ? 'Friday' : 'Viernes'}
                   </label>
                   <label class="day-pill">
                     <input type="checkbox" name="days[]" value="sabado" />
-                    <span class="lang-es">Sábado</span>
-                    <span class="lang-en">Saturday</span>
+                    {isEn ? 'Saturday' : 'Sábado'}
                   </label>
                 </div>
               </fieldset>
             </div>
 
-            <!-- 4. Horario preferido -->
+            <!-- 4. Preferred time -->
             <div class="form-group">
               <label class="form-label" for="contact-time">
-                <span class="lang-es">Horario preferido</span>
-                <span class="lang-en">Preferred time</span>
+                {isEn ? 'Preferred time' : 'Horario preferido'}
               </label>
               <select
                 id="contact-time"
@@ -188,27 +168,26 @@ import SectionHead from './SectionHead.astro';
                 required
                 aria-required="true"
               >
-                <option value="" disabled selected>Selecciona un horario</option>
-                <option value="manana" data-label-es="Mañana (8–12 h)" data-label-en="Morning (8–12)">Mañana (8–12 h)</option>
-                <option value="tarde" data-label-es="Tarde (12–17 h)" data-label-en="Afternoon (12–17)">Tarde (12–17 h)</option>
-                <option value="tarde-noche" data-label-es="Tarde–noche (17–20 h)" data-label-en="Evening (17–20)">Tarde–noche (17–20 h)</option>
+                <option value="" disabled selected>{isEn ? 'Select a time range' : 'Selecciona un horario'}</option>
+                <option value="manana">{isEn ? 'Morning (8–12)' : 'Mañana (8–12 h)'}</option>
+                <option value="tarde">{isEn ? 'Afternoon (12–17)' : 'Tarde (12–17 h)'}</option>
+                <option value="tarde-noche">{isEn ? 'Evening (17–20)' : 'Tarde–noche (17–20 h)'}</option>
               </select>
             </div>
 
-            <!-- 5. Proyecto o servicio de interés -->
+            <!-- 5. Project / service -->
             <div class="form-group">
               <label class="form-label" for="contact-project">
-                <span class="lang-es">Proyecto o servicio de interés</span>
-                <span class="lang-en">Project or service</span>
+                {isEn ? 'Project or service' : 'Proyecto o servicio de interés'}
               </label>
               <textarea
                 id="contact-project"
                 name="project"
                 class="input contact-textarea"
                 rows="5"
-                data-placeholder-es="Describe el proyecto — alcance aproximado, stack existente si lo hay, contexto relevante — o indica el paquete que seleccionaste en la sección de precios."
-                data-placeholder-en="Describe the project — approximate scope, existing stack if any, relevant context — or note the package you selected in the pricing section."
-                placeholder="Describe el proyecto — alcance aproximado, stack existente si lo hay, contexto relevante — o indica el paquete que seleccionaste en la sección de precios."
+                placeholder={isEn
+                  ? 'Describe the project — approximate scope, existing stack if any, relevant context — or note the package you selected in the pricing section.'
+                  : 'Describe el proyecto — alcance aproximado, stack existente si lo hay, contexto relevante — o indica el paquete que seleccionaste en la sección de precios.'}
               ></textarea>
             </div>
 
@@ -218,13 +197,9 @@ import SectionHead from './SectionHead.astro';
               type="submit"
               class="btn btn-coffee contact-submit"
             >
-              <span class="submit-label">
-                <span class="lang-es">Enviar solicitud</span>
-                <span class="lang-en">Send request</span>
-              </span>
+              <span class="submit-label">{isEn ? 'Send request' : 'Enviar solicitud'}</span>
               <span class="submit-loading" aria-hidden="true" hidden>
-                <span class="lang-es">Enviando…</span>
-                <span class="lang-en">Sending…</span>
+                {isEn ? 'Sending…' : 'Enviando…'}
               </span>
             </button>
           </form>
@@ -240,13 +215,11 @@ import SectionHead from './SectionHead.astro';
               <circle cx="12" cy="12" r="11" stroke="currentColor" stroke-width="1.5"/>
               <path d="M7.5 12.5l3 3 6-6" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
-            <h3 class="success-title">
-              <span class="lang-es">Solicitud recibida.</span>
-              <span class="lang-en">Request received.</span>
-            </h3>
+            <h3 class="success-title">{isEn ? 'Request received.' : 'Solicitud recibida.'}</h3>
             <p class="success-body">
-              <span class="lang-es">Revisaremos los detalles y te confirmaremos un horario antes del siguiente día hábil. Si tu zona horaria es distinta a Sonora (UTC−7), inclúyela en el campo de proyecto para coordinar sin contratiempos.</span>
-              <span class="lang-en">We'll review the details and confirm a time before the next business day. If your time zone differs from Sonora (UTC−7), add it to the project field so we can coordinate without back-and-forth.</span>
+              {isEn
+                ? "We'll review the details and confirm a time before the next business day. If your time zone differs from Sonora (UTC−7), add it to the project field so we can coordinate without back-and-forth."
+                : 'Revisaremos los detalles y te confirmaremos un horario antes del siguiente día hábil. Si tu zona horaria es distinta a Sonora (UTC−7), inclúyela en el campo de proyecto para coordinar sin contratiempos.'}
             </p>
           </div>
         </div>
@@ -256,52 +229,9 @@ import SectionHead from './SectionHead.astro';
 </section>
 
 <script>
-  // ─── Placeholder swap on language change ───────────────────────────────────
-  // LangToggle sets data-lang on <html>; we observe that attribute mutation
-  // to swap input/textarea placeholders and select option text.
-  function syncPlaceholders() {
-    const lang = document.documentElement.getAttribute('data-lang') ?? 'es';
-
-    // Swap input / textarea placeholders
-    document.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>(
-      '[data-placeholder-es]'
-    ).forEach((el) => {
-      const key = lang === 'en' ? 'placeholderEn' : 'placeholderEs';
-      const text = (el as HTMLElement).dataset[key];
-      if (text) el.placeholder = text;
-    });
-
-    // Swap select option text
-    const timeSelect = document.getElementById('contact-time') as HTMLSelectElement | null;
-    if (timeSelect) {
-      Array.from(timeSelect.options).forEach((opt) => {
-        if (!opt.value) {
-          // placeholder option
-          opt.text = lang === 'en' ? 'Select a time range' : 'Selecciona un horario';
-        } else {
-          const key = lang === 'en' ? 'labelEn' : 'labelEs';
-          const text = opt.dataset[key];
-          if (text) opt.text = text;
-        }
-      });
-    }
-  }
-
-  // Run once on load
-  syncPlaceholders();
-
-  // Observe data-lang attribute changes
-  const observer = new MutationObserver((mutations) => {
-    for (const m of mutations) {
-      if (m.attributeName === 'data-lang') {
-        syncPlaceholders();
-        break;
-      }
-    }
-  });
-  observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-lang'] });
-
   // ─── Form submission ────────────────────────────────────────────────────────
+  // Placeholders and labels are now rendered statically per language route.
+  // No runtime language swapping needed here.
   const form = document.getElementById('contact-form') as HTMLFormElement | null;
   const submitBtn = document.getElementById('contact-submit') as HTMLButtonElement | null;
   const successEl = document.getElementById('contact-success') as HTMLElement | null;
@@ -414,6 +344,7 @@ import SectionHead from './SectionHead.astro';
   /* ─── Meta card ─────────────────────────────────────────────────────────── */
   .contact-meta-card {
     background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
     border-radius: var(--radius-lg);
     padding: var(--space-6);
   }

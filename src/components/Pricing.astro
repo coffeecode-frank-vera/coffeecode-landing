@@ -2,7 +2,14 @@
 import { getCollection } from 'astro:content';
 import '@styles/pricing.css';
 import SectionHead from './SectionHead.astro';
-import PriceCard from './PriceCard.astro';
+import type { Lang } from '@layouts/Base.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const isEn = lang === 'en';
 
 const allTiers = await getCollection('pricing');
 const tiers = allTiers.sort((a, b) => a.data.order - b.data.order);
@@ -19,18 +26,31 @@ const services = [
     cta: 'Agendar discovery',
     ctaEn: 'Schedule discovery',
     features: [
-      'Discovery + propuesta sin costo',
-      'Stack definido por el problema, no por preferencia de proveedor (TS, Go, Rust, Postgres)',
-      'Equipo dedicado al proyecto · sin contratistas rotativos',
-      'Modalidades: alcance fijo, retainer o aumento de capacidad',
-      'Soporte y mantenimiento post-entrega opcionales',
-    ],
-    featuresEn: [
-      'Discovery + proposal at no cost',
-      'Stack chosen for the problem, not vendor preference (TS, Go, Rust, Postgres)',
-      'Team dedicated to the project · no rotating contractors',
-      'Engagement models: fixed scope, retainer, or staff augmentation',
-      'Optional post-delivery support and maintenance',
+      {
+        es: 'Discovery + propuesta sin costo',
+        en: 'Discovery + proposal at no cost',
+        icon: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>`,
+      },
+      {
+        es: 'Stack definido por el problema, no por preferencia de proveedor (TS, Go, Rust, Postgres)',
+        en: 'Stack chosen for the problem, not vendor preference (TS, Go, Rust, Postgres)',
+        icon: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>`,
+      },
+      {
+        es: 'Equipo dedicado al proyecto · sin contratistas rotativos',
+        en: 'Team dedicated to the project · no rotating contractors',
+        icon: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
+      },
+      {
+        es: 'Modalidades: alcance fijo, retainer o aumento de capacidad',
+        en: 'Engagement models: fixed scope, retainer, or staff augmentation',
+        icon: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>`,
+      },
+      {
+        es: 'Soporte y mantenimiento post-entrega opcionales',
+        en: 'Optional post-delivery support and maintenance',
+        icon: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>`,
+      },
     ],
   },
   {
@@ -44,18 +64,31 @@ const services = [
     cta: 'Agendar sesión',
     ctaEn: 'Schedule session',
     features: [
-      'Auditoría de código y arquitectura con informe técnico',
-      'Diagnóstico de aplicaciones en producción con problemas de rendimiento',
-      'Revisión de deuda técnica con plan de resolución priorizado',
-      'Consultoría fraccionada en tecnología específica',
-      'Modalidad: sesión única, paquete de horas o contrato mensual',
-    ],
-    featuresEn: [
-      'Code and architecture audit with technical report',
-      'Diagnosis of production applications with performance issues',
-      'Technical debt review with a prioritized resolution plan',
-      'Fractional consulting in a specific technology',
-      'Engagement: single session, hour block, or monthly contract',
+      {
+        es: 'Auditoría de código y arquitectura con informe técnico',
+        en: 'Code and architecture audit with technical report',
+        icon: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>`,
+      },
+      {
+        es: 'Diagnóstico de aplicaciones en producción con problemas de rendimiento',
+        en: 'Diagnosis of production applications with performance issues',
+        icon: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>`,
+      },
+      {
+        es: 'Revisión de deuda técnica con plan de resolución priorizado',
+        en: 'Technical debt review with a prioritized resolution plan',
+        icon: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>`,
+      },
+      {
+        es: 'Consultoría fraccionada en tecnología específica',
+        en: 'Fractional consulting in a specific technology',
+        icon: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`,
+      },
+      {
+        es: 'Modalidad: sesión única, paquete de horas o contrato mensual',
+        en: 'Engagement: single session, hour block, or monthly contract',
+        icon: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`,
+      },
     ],
   },
   {
@@ -69,18 +102,31 @@ const services = [
     cta: 'Contactar',
     ctaEn: 'Contact',
     features: [
-      'Librerías con API documentada y suite de pruebas',
-      'CLIs y herramientas de línea de comandos',
-      'SDKs para integraciones de terceros',
-      'Herramientas internas: dashboards, scripts de automatización, pipelines',
-      'Publicación y mantenimiento opcionales',
-    ],
-    featuresEn: [
-      'Libraries with documented API and test suite',
-      'CLIs and command-line tooling',
-      'SDKs for third-party integrations',
-      'Internal tooling: dashboards, automation scripts, pipelines',
-      'Optional publishing and maintenance',
+      {
+        es: 'Librerías con API documentada y suite de pruebas',
+        en: 'Libraries with documented API and test suite',
+        icon: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>`,
+      },
+      {
+        es: 'CLIs y herramientas de línea de comandos',
+        en: 'CLIs and command-line tooling',
+        icon: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>`,
+      },
+      {
+        es: 'SDKs para integraciones de terceros',
+        en: 'SDKs for third-party integrations',
+        icon: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>`,
+      },
+      {
+        es: 'Herramientas internas: dashboards, scripts de automatización, pipelines',
+        en: 'Internal tooling: dashboards, automation scripts, pipelines',
+        icon: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>`,
+      },
+      {
+        es: 'Publicación y mantenimiento opcionales',
+        en: 'Optional publishing and maintenance',
+        icon: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"/></svg>`,
+      },
     ],
   },
 ];
@@ -89,88 +135,187 @@ const services = [
 <section id="precios" class="section">
   <div class="container">
     <SectionHead
+      lang={lang}
       num="§04"
       label="Precios"
+      labelEn="Pricing"
       title="Precio fijo o cotización formal. Sin estimaciones abiertas."
       titleEn="Fixed price or formal quote. No open-ended estimates."
       lede="Landings con precio fijo y alcance definido. Desarrollos a la medida con cotización formal después de una sesión de discovery."
       ledeEn="Fixed-price landings with defined scope. Custom development quoted after a formal discovery session."
     />
 
-    <!-- Sub-section A: Landing Pages -->
-    <p class="pricing-sublabel">
-      <span class="lang-es">Landing Pages</span>
-      <span class="lang-en">Landing Pages</span>
-    </p>
+    <!-- Sub-section A: Landing Pages — comparison table -->
+    <p class="pricing-sublabel">Landing Pages</p>
 
-    <div class="pricing-grid">
+    <!-- Mobile: stacked tier cards (hidden ≥720px) -->
+    <div class="pricing-mobile-cards">
       {tiers.map((tier) => (
-        <PriceCard
-          name={tier.data.name}
-          sub={tier.data.sub}
-          subEn={tier.data.subEn}
-          price={tier.data.price}
-          priceEn={tier.data.priceEn}
-          priceNote={tier.data.priceNote}
-          priceNoteEn={tier.data.priceNoteEn}
-          featured={tier.data.featured}
-          cta={tier.data.cta}
-          ctaEn={tier.data.ctaEn}
-          features={tier.data.features}
-          featuresEn={tier.data.featuresEn}
-        />
+        <div class:list={['pmc', { 'pmc--featured': tier.data.featured }]}>
+          {tier.data.featured && (
+            <span class="price-badge pmc-badge">{isEn ? 'Most popular' : 'Más elegido'}</span>
+          )}
+          <div class="pmc-header">
+            <span class="pmc-name">{tier.data.name}</span>
+            <p class="pmc-sub">{isEn && tier.data.subEn ? tier.data.subEn : tier.data.sub}</p>
+          </div>
+          <div class="pmc-price-row">
+            <span class="pmc-price">{isEn && tier.data.priceEn ? tier.data.priceEn : tier.data.price}</span>
+            <span class="pmc-note">{isEn && tier.data.priceNoteEn ? tier.data.priceNoteEn : tier.data.priceNote}</span>
+          </div>
+          <ul class="pmc-features">
+            {(isEn ? tier.data.featuresEn : tier.data.features).map((f: string) => (
+              <li>
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5L6.5 11.5L3 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                {f}
+              </li>
+            ))}
+          </ul>
+          <a href="#contacto" class:list={['btn', tier.data.featured ? 'btn-coffee' : 'btn-secondary', 'pmc-cta']}>
+            {isEn && tier.data.ctaEn ? tier.data.ctaEn : tier.data.cta}
+          </a>
+        </div>
       ))}
+    </div>
+
+    <!-- Desktop: comparison table (hidden <720px) -->
+    <div class="pricing-compare-wrap">
+      <table class="pricing-compare" aria-label={isEn ? 'Landing page tier comparison' : 'Comparativa de tiers de landing'}>
+        <thead>
+          <tr>
+            <th class="pc-feature-col" scope="col"></th>
+            {tiers.map((tier) => (
+              <th class="pc-tier-col" scope="col">
+                <div class="pc-tier-head">
+                  {tier.data.featured && (
+                    <span class="price-badge pc-badge">{isEn ? 'Most popular' : 'Más elegido'}</span>
+                  )}
+                  <span class="pc-tier-name">{tier.data.name}</span>
+                  <span class="pc-tier-price">{isEn && tier.data.priceEn ? tier.data.priceEn : tier.data.price}</span>
+                  <span class="pc-tier-note">{isEn && tier.data.priceNoteEn ? tier.data.priceNoteEn : tier.data.priceNote}</span>
+                </div>
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {[
+            {
+              label:  isEn ? 'Scope'          : 'Alcance',
+              vals:   isEn
+                ? ['1 page · 6 sections', '8 pages', 'Multi-page + blog / docs']
+                : ['1 página · 6 secciones', '8 páginas', 'Multi-página + blog / docs'],
+            },
+            {
+              label:  isEn ? 'Delivery'       : 'Entrega',
+              vals:   isEn
+                ? ['2 weeks', '4 weeks', '6–8 weeks']
+                : ['2 semanas', '4 semanas', '6–8 semanas'],
+            },
+            {
+              label:  isEn ? 'Payment'        : 'Pago',
+              vals:   isEn
+                ? ['Single payment', '2 milestones', '3 milestones']
+                : ['Pago único', '2 hitos', '3 hitos'],
+            },
+            {
+              label:  isEn ? 'Design'         : 'Diseño',
+              vals:   isEn
+                ? ['From existing identity', 'Design system · 3 rounds', 'Full design system']
+                : ['Desde identidad existente', 'Sistema de diseño · 3 rondas', 'Sistema completo'],
+            },
+            {
+              label:  'CMS',
+              vals:   isEn
+                ? ['—', 'Optional', 'Full (editorial roles)']
+                : ['—', 'Opcional', 'Completo (roles editoriales)'],
+            },
+            {
+              label:  isEn ? 'Integrations'   : 'Integraciones',
+              vals:   isEn
+                ? ['—', 'HubSpot · Stripe · Calendly', '✓']
+                : ['—', 'HubSpot · Stripe · Calendly', '✓'],
+            },
+            {
+              label:  'i18n',
+              vals:   isEn
+                ? ['—', '2 languages', '2 languages']
+                : ['—', '2 idiomas', '2 idiomas'],
+            },
+            {
+              label:  isEn ? 'Performance'    : 'Rendimiento',
+              vals:   isEn
+                ? ['—', 'LCP < 1.5 s guaranteed', '✓']
+                : ['—', 'LCP < 1.5 s garantizado', '✓'],
+            },
+            {
+              label:  isEn ? 'Analytics + SEO' : 'Analytics + SEO',
+              vals:   ['✓', '✓', '✓'],
+            },
+            {
+              label:  isEn ? 'Hosting 1 yr'   : 'Hosting 1 año',
+              vals:   isEn
+                ? ['up to USD 20', 'up to USD 20', 'up to USD 20']
+                : ['hasta USD 20', 'hasta USD 20', 'hasta USD 20'],
+            },
+            {
+              label:  isEn ? 'Support'        : 'Soporte',
+              vals:   isEn
+                ? ['—', '30 days', '60 days + retainer option']
+                : ['—', '30 días', '60 días + retainer opcional'],
+            },
+          ].map((row) => (
+            <tr>
+              <td class="pc-feature">{row.label}</td>
+              {row.vals.map((val, i) => (
+                <td class:list={['pc-val', { 'pc-featured': tiers[i]?.data.featured }]}>
+                  {val === '✓'
+                    ? <svg class="pc-check" viewBox="0 0 16 16" fill="none" aria-label={isEn ? 'Included' : 'Incluido'}><path d="M13.5 4.5L6.5 11.5L3 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    : val === '—'
+                    ? <span class="pc-none" aria-label={isEn ? 'Not included' : 'No incluido'}>—</span>
+                    : val}
+                </td>
+              ))}
+            </tr>
+          ))}
+          <tr class="pc-cta-row">
+            <td></td>
+            {tiers.map((tier) => (
+              <td class:list={[{ 'pc-featured': tier.data.featured }]}>
+                <a href="#contacto" class:list={['btn', tier.data.featured ? 'btn-coffee' : 'btn-secondary', 'pc-cta-btn']}>
+                  {isEn && tier.data.ctaEn ? tier.data.ctaEn : tier.data.cta}
+                </a>
+              </td>
+            ))}
+          </tr>
+        </tbody>
+      </table>
     </div>
 
     <!-- Sub-section B: Custom Development -->
     <p class="pricing-sublabel pricing-sublabel--second">
-      <span class="lang-es">Desarrollos a la medida</span>
-      <span class="lang-en">Custom development</span>
+      {isEn ? 'Custom development' : 'Desarrollos a la medida'}
     </p>
 
     <div class="services-grid">
       {services.map((service) => (
         <div class="service-card">
-          <div>
-            <p class="service-name">
-              <span class="lang-es">{service.name}</span>
-              <span class="lang-en">{service.nameEn}</span>
-            </p>
-            <p class="service-tagline">
-              <span class="lang-es">{service.tagline}</span>
-              <span class="lang-en">{service.taglineEn}</span>
-            </p>
+          <div class="service-header">
+            <p class="service-name">{isEn ? service.nameEn : service.name}</p>
+            <p class="service-tagline">{isEn ? service.taglineEn : service.tagline}</p>
           </div>
 
-          <p class="service-body">
-            <span class="lang-es">{service.body}</span>
-            <span class="lang-en">{service.bodyEn}</span>
-          </p>
-
-          <ul class="price-list">
-            <>
-              {service.features.map((f) => (
-                <li class="lang-es">
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                    <path d="M13.5 4.5L6.5 11.5L3 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                  {f}
-                </li>
-              ))}
-              {service.featuresEn.map((f) => (
-                <li class="lang-en">
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                    <path d="M13.5 4.5L6.5 11.5L3 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                  {f}
-                </li>
-              ))}
-            </>
+          <ul class="price-list service-features-grid">
+            {service.features.map((f) => (
+              <li>
+                <span class="service-feat-icon" set:html={f.icon} />
+                {isEn ? f.en : f.es}
+              </li>
+            ))}
           </ul>
 
           <a href="#contacto" class="btn btn-secondary service-cta">
-            <span class="lang-es">{service.cta}</span>
-            <span class="lang-en">{service.ctaEn}</span>
+            {isEn ? service.ctaEn : service.cta}
           </a>
         </div>
       ))}

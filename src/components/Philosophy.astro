@@ -1,6 +1,14 @@
 ---
 import '@styles/page.css';
 import SectionHead from './SectionHead.astro';
+import type { Lang } from '@layouts/Base.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const isEn = lang === 'en';
 
 const principles = [
   {
@@ -9,6 +17,7 @@ const principles = [
     titleEn: 'Scope is defined, not assumed.',
     bodyEs: 'Diagnóstico técnico primero. El alcance emerge del problema, no de una propuesta genérica.',
     bodyEn: 'Technical diagnosis first. Scope follows from the problem, not from a generic proposal.',
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/><line x1="22" y1="12" x2="18" y2="12"/><line x1="6" y1="12" x2="2" y2="12"/><line x1="12" y1="6" x2="12" y2="2"/><line x1="12" y1="22" x2="12" y2="18"/></svg>`,
   },
   {
     num: '02',
@@ -16,6 +25,7 @@ const principles = [
     titleEn: 'Structural visibility from the start.',
     bodyEs: 'Precio fijo, cronograma verificable, avance documentado. Sin ambigüedad presupuestaria.',
     bodyEn: 'Fixed price, verifiable timeline, documented progress. No budget ambiguity.',
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="4" y="13" width="4" height="8" rx="1" fill="currentColor" stroke="none"/><rect x="10" y="6" width="4" height="15" rx="1" fill="currentColor" stroke="none"/><rect x="16" y="9" width="4" height="12" rx="1" fill="currentColor" stroke="none"/><line x1="2" y1="22" x2="22" y2="22"/></svg>`,
   },
   {
     num: '03',
@@ -23,6 +33,7 @@ const principles = [
     titleEn: 'Production quality as a delivery condition.',
     bodyEs: 'Código que opera bajo carga, gestiona fallos y escala. No se entrega si no está listo.',
     bodyEn: 'Code that operates under load, handles failures, and scales. Not shipped until it\'s ready.',
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>`,
   },
   {
     num: '04',
@@ -30,6 +41,7 @@ const principles = [
     titleEn: 'Security and observability from the first commit.',
     bodyEs: 'Análisis estático, trazabilidad de logs y controles de seguridad en la arquitectura desde el día uno.',
     bodyEn: 'Static analysis, log traceability, and security controls in the architecture from day one.',
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><circle cx="12" cy="16" r="1" fill="currentColor" stroke="none"/></svg>`,
   },
 ];
 ---
@@ -37,8 +49,10 @@ const principles = [
 <section id="filosofia" class="section">
   <div class="container">
     <SectionHead
+      lang={lang}
       num="§02"
       label="Filosofía"
+      labelEn="Philosophy"
       title="Cómo trabajamos"
       titleEn="How we work"
       lede="Cuatro compromisos operativos que rigen cada proyecto — desde el encuadre inicial hasta la estabilidad en producción."
@@ -48,18 +62,15 @@ const principles = [
     <div class="philosophy">
       {principles.map((p) => (
         <article class={`principle principle-${p.num}`}>
-          <p class="principle-num">
-            <span class="principle-num-digits">{p.num}</span>
-            <span class="principle-num-sep" aria-hidden="true"> /</span>
-          </p>
-          <h3 class="principle-title">
-            <span class="lang-es">{p.titleEs}</span>
-            <span class="lang-en">{p.titleEn}</span>
-          </h3>
-          <p class="principle-body">
-            <span class="lang-es">{p.bodyEs}</span>
-            <span class="lang-en">{p.bodyEn}</span>
-          </p>
+          <div class="principle-meta">
+            <span class="principle-icon" set:html={p.icon} />
+            <p class="principle-num">
+              <span class="principle-num-digits">{p.num}</span>
+              <span class="principle-num-sep" aria-hidden="true"> /</span>
+            </p>
+          </div>
+          <h3 class="principle-title">{isEn ? p.titleEn : p.titleEs}</h3>
+          <p class="principle-body">{isEn ? p.bodyEn : p.bodyEs}</p>
         </article>
       ))}
     </div>
@@ -72,16 +83,24 @@ const principles = [
     Base layout stays in page.css — only card-level refinements here.
   */
 
-  /* Card 01 gets a coffee-colored top accent to anchor the sequence visually.
-     Two pixels is enough signal; anything heavier competes with the border-radius. */
-  .principle-01 {
-    border-top: 2px solid var(--coffee);
+  .principle-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-bottom: var(--space-4);
   }
 
-  /* The number label on card 01 inherits the coffee accent.
-     Cards 02–04 remain tertiary — the accent doesn't repeat. */
-  .principle-01 .principle-num-digits {
+  .principle-meta .principle-num {
+    margin-bottom: 0;
+  }
+
+  .principle-icon {
+    display: flex;
+    align-items: center;
+    width: 22px;
+    height: 22px;
     color: var(--coffee);
+    flex-shrink: 0;
   }
 
   /* text-wrap: balance distributes line breaks evenly.

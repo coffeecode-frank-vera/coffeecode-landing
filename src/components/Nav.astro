@@ -2,13 +2,21 @@
 import '@styles/page.css';
 import ThemeToggle from '@components/ThemeToggle.astro';
 import LangToggle from '@components/LangToggle.astro';
+import type { Lang } from '@layouts/Base.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const isEn = lang === 'en';
 ---
 
 <header>
-  <nav class="nav" aria-label="Navegación principal / Main navigation">
+  <nav class="nav" aria-label={isEn ? 'Main navigation' : 'Navegación principal'}>
     <div class="nav-inner">
 
-      <a href="/" class="nav-logo" aria-label="Coffee Code — inicio / home">
+      <a href={isEn ? '/en/' : '/'} class="nav-logo" aria-label={isEn ? 'Coffee Code — home' : 'Coffee Code — inicio'}>
         <!-- Wordmark: desktop — inline SVG so fill responds to CSS variables -->
         <svg
           class="nav-logo-wordmark"
@@ -25,57 +33,42 @@ import LangToggle from '@components/LangToggle.astro';
           ><tspan fill="var(--brace)">{'{'}</tspan><tspan fill="var(--coffee)"> coffee</tspan><tspan fill="var(--syntax)">:</tspan><tspan fill="var(--code)"> code </tspan><tspan fill="var(--brace)">{'}'}</tspan></text>
         </svg>
 
-        <!-- Mark: mobile — { cc } symbol only, text cropped out -->
+        <!-- Mark: mobile — { cc } symbol only -->
         <svg
           class="nav-logo-mark"
-          viewBox="60 25 200 70"
+          viewBox="0 20 200 60"
           fill="none"
           aria-hidden="true"
           focusable="false"
         >
-          <g transform="translate(40, 10)">
-            <path d="M 50 25 Q 40 25 40 35 L 40 46 Q 40 50 33 50 Q 40 50 40 54 L 40 65 Q 40 75 50 75" stroke="var(--brace)" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M 101.07 30.85 A 25 25 0 1 0 101.07 69.15" stroke="var(--coffee)" stroke-width="5.5" stroke-linecap="round"/>
-            <circle cx="120" cy="35" r="4.5" fill="var(--syntax)"/>
-            <circle cx="120" cy="65" r="4.5" fill="var(--syntax)"/>
-            <path d="M 171.07 30.85 A 25 25 0 1 0 171.07 69.15" stroke="var(--code)" stroke-width="5.5" stroke-linecap="round"/>
-            <path d="M 190 25 Q 200 25 200 35 L 200 46 Q 200 50 207 50 Q 200 50 200 54 L 200 65 Q 200 75 190 75" stroke="var(--brace)" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </g>
+          <path d="M 22 25 Q 12 25 12 35 L 12 46 Q 12 50 5 50 Q 12 50 12 54 L 12 65 Q 12 75 22 75" stroke="var(--brace)" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M 78.07 30.85 A 25 25 0 1 0 78.07 69.15" stroke="var(--coffee)" stroke-width="5.5" stroke-linecap="round"/>
+          <circle cx="100" cy="35" r="4.5" fill="var(--syntax)"/>
+          <circle cx="100" cy="65" r="4.5" fill="var(--syntax)"/>
+          <path d="M 159.07 30.85 A 25 25 0 1 0 159.07 69.15" stroke="var(--code)" stroke-width="5.5" stroke-linecap="round"/>
+          <path d="M 178 25 Q 188 25 188 35 L 188 46 Q 188 50 195 50 Q 188 50 188 54 L 188 65 Q 188 75 178 75" stroke="var(--brace)" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </a>
 
       <div class="nav-links" id="nav-links">
-        <a href="#quienes-somos" class="nav-link">
-          <span class="lang-es">Quiénes somos</span>
-          <span class="lang-en">Who we are</span>
-        </a>
-        <a href="#filosofia" class="nav-link">
-          <span class="lang-es">Filosofía</span>
-          <span class="lang-en">Philosophy</span>
-        </a>
-        <a href="#trabajo" class="nav-link">
-          <span class="lang-es">Trabajo</span>
-          <span class="lang-en">Work</span>
-        </a>
-        <a href="#precios" class="nav-link">
-          <span class="lang-es">Precios</span>
-          <span class="lang-en">Pricing</span>
-        </a>
-        <a href="#contacto" class="btn btn-coffee nav-cta">
-          <span class="lang-es">Contacto</span>
-          <span class="lang-en">Contact</span>
-        </a>
+        <a href="#quienes-somos" class="nav-link">{isEn ? 'Who we are' : 'Quiénes somos'}</a>
+        <a href="#filosofia" class="nav-link">{isEn ? 'Philosophy' : 'Filosofía'}</a>
+        <a href="#trabajo" class="nav-link">{isEn ? 'Work' : 'Trabajo'}</a>
+        <a href="#precios" class="nav-link">{isEn ? 'Pricing' : 'Precios'}</a>
+        <a href="#contacto" class="btn btn-coffee nav-cta">{isEn ? 'Contact' : 'Contacto'}</a>
       </div>
 
       <div class="nav-actions">
-        <LangToggle />
+        <LangToggle lang={lang} />
         <ThemeToggle />
         <button
           class="btn btn-ghost nav-hamburger"
           id="nav-hamburger"
           aria-expanded="false"
           aria-controls="nav-links"
-          aria-label="Abrir menú"
+          aria-label={isEn ? 'Open menu' : 'Abrir menú'}
+          data-label-open={isEn ? 'Open menu' : 'Abrir menú'}
+          data-label-close={isEn ? 'Close menu' : 'Cerrar menú'}
         >
           <svg width="18" height="14" viewBox="0 0 18 14" fill="none" aria-hidden="true" focusable="false">
             <rect y="0"  width="18" height="2" rx="1" fill="currentColor"/>
@@ -160,19 +153,13 @@ import LangToggle from '@components/LangToggle.astro';
   const hamburger = document.getElementById('nav-hamburger') as HTMLButtonElement;
   const navLinksEl = document.getElementById('nav-links') as HTMLElement;
 
-  function menuLabel(es: string, en: string) {
-    return document.documentElement.getAttribute('data-lang') === 'en' ? en : es;
-  }
+  const labelOpen  = hamburger.dataset.labelOpen  ?? 'Abrir menú';
+  const labelClose = hamburger.dataset.labelClose ?? 'Cerrar menú';
 
   hamburger.addEventListener('click', () => {
     const isOpen = navLinksEl.classList.toggle('is-open');
     hamburger.setAttribute('aria-expanded', String(isOpen));
-    hamburger.setAttribute(
-      'aria-label',
-      isOpen
-        ? menuLabel('Cerrar menú', 'Close menu')
-        : menuLabel('Abrir menú', 'Open menu')
-    );
+    hamburger.setAttribute('aria-label', isOpen ? labelClose : labelOpen);
   });
 
   // Close menu when a link is clicked
@@ -180,7 +167,7 @@ import LangToggle from '@components/LangToggle.astro';
     link.addEventListener('click', () => {
       navLinksEl.classList.remove('is-open');
       hamburger.setAttribute('aria-expanded', 'false');
-      hamburger.setAttribute('aria-label', menuLabel('Abrir menú', 'Open menu'));
+      hamburger.setAttribute('aria-label', labelOpen);
     });
   });
 </script>

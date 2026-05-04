@@ -19,23 +19,29 @@
 </button>
 
 <script>
-  const toggle = document.querySelector('.theme-toggle') as HTMLButtonElement;
-  const html = document.documentElement;
+  function initThemeToggle() {
+    const toggle = document.querySelector('.theme-toggle') as HTMLButtonElement;
+    if (!toggle) return;
+    const html = document.documentElement;
 
-  function update() {
-    const dark = html.getAttribute('data-theme') === 'dark';
-    (toggle.querySelector('.icon-sun') as HTMLElement).style.display = dark ? 'block' : 'none';
-    (toggle.querySelector('.icon-moon') as HTMLElement).style.display = dark ? 'none' : 'block';
+    function update() {
+      const dark = html.getAttribute('data-theme') === 'dark';
+      (toggle.querySelector('.icon-sun') as HTMLElement).style.display = dark ? 'block' : 'none';
+      (toggle.querySelector('.icon-moon') as HTMLElement).style.display = dark ? 'none' : 'block';
+    }
+
+    update();
+
+    toggle.addEventListener('click', () => {
+      const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+      update();
+    });
   }
 
-  update();
-
-  toggle?.addEventListener('click', () => {
-    const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-    html.setAttribute('data-theme', next);
-    localStorage.setItem('theme', next);
-    update();
-  });
+  initThemeToggle();
+  document.addEventListener('astro:page-load', initThemeToggle);
 </script>
 
 <style>

@@ -1,28 +1,25 @@
 ---
 import '@styles/page.css';
+import type { Lang } from '@layouts/Base.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const isEn = lang === 'en';
+
+const headline     = isEn ? 'Software for companies where the code matters.'            : 'Software para empresas donde el código importa.';
+const sub1         = isEn ? 'We build systems that ship to production and stay there.'  : 'Construimos sistemas que llegan a producción y se quedan.';
+const sub2         = isEn ? "It's not cheap. That's what doing it right costs."         : 'No es barato. Es lo que cuesta hacerlo bien.';
+const ctaLabel     = isEn ? 'Talk about your project'                                   : 'Hablemos del proyecto';
+const metaLabel    = isEn ? 'Studio data'                                               : 'Datos del estudio';
+const stackVal     = isEn ? 'Stack chosen for the problem. TS, C#, Postgres by default.' : 'Stack elegido por el problema. TS, C#, Postgres por defecto.';
 ---
 
 <section id="inicio" class="hero" aria-labelledby="hero-headline">
   <div class="container">
     <div class="hero-grid">
-
-      <!-- Background glyph: { c:c } at large scale, low opacity -->
-      <svg
-        class="hero-glyph"
-        viewBox="0 0 240 100"
-        fill="none"
-        aria-hidden="true"
-        focusable="false"
-      >
-        <g>
-          <path d="M 50 25 Q 40 25 40 35 L 40 46 Q 40 50 33 50 Q 40 50 40 54 L 40 65 Q 40 75 50 75" stroke="currentColor" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M 61.07 30.85 A 25 25 0 1 0 61.07 69.15" stroke="currentColor" stroke-width="5.5" stroke-linecap="round"/>
-          <circle cx="80" cy="35" r="4.5" fill="currentColor"/>
-          <circle cx="80" cy="65" r="4.5" fill="currentColor"/>
-          <path d="M 131.07 30.85 A 25 25 0 1 0 131.07 69.15" stroke="currentColor" stroke-width="5.5" stroke-linecap="round"/>
-          <path d="M 150 25 Q 160 25 160 35 L 160 46 Q 160 50 167 50 Q 160 50 160 54 L 160 65 Q 160 75 150 75" stroke="currentColor" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </g>
-      </svg>
 
       <!-- Left: statement + CTAs -->
       <div class="hero-left">
@@ -44,36 +41,43 @@ import '@styles/page.css';
         </svg>
 
         <p class="hero-eyebrow">
-          <span class="dot" aria-hidden="true"></span>
           Software studio · Nogales, Sonora, México
         </p>
 
-        <h1 id="hero-headline">
-          <span class="lang-es">Software para empresas donde el código importa.</span>
-          <span class="lang-en">Software for companies where the code matters.</span>
-        </h1>
+        <h1 id="hero-headline">{headline}</h1>
 
         <p class="hero-sub">
-          <span class="lang-es">Construimos sistemas que llegan a producción y se quedan.<br class="hero-sub-br" /> No es barato. Es lo que cuesta hacerlo bien.</span>
-          <span class="lang-en">We build systems that ship to production and stay there.<br class="hero-sub-br" /> It's not cheap. That's what doing it right costs.</span>
+          {sub1}<br class="hero-sub-br" /> {sub2}
         </p>
 
         <div class="hero-cta">
-          <a href="#contacto" class="btn btn-coffee">
-            <span class="lang-es">Hablemos del proyecto</span>
-            <span class="lang-en">Talk about your project</span>
-          </a>
+          <a href="#contacto" class="btn btn-coffee">{ctaLabel}</a>
         </div>
       </div>
 
-      <!-- Right: studio metadata — single stack line -->
-      <aside class="hero-meta" aria-label="Datos del estudio / Studio data">
-        <div class="hero-meta-row hero-meta-stack">
-          <span class="hero-meta-label">stack</span>
-          <span class="hero-meta-val">
-            <span class="lang-es">Stack elegido por el problema. TS, C#, Postgres por defecto.</span>
-            <span class="lang-en">Stack chosen for the problem. TS, C#, Postgres by default.</span>
-          </span>
+      <!-- Right: animated terminal -->
+      <aside class="hero-terminal" aria-label={metaLabel} aria-hidden="true">
+        <div class="term-bar">
+          <span class="term-dot" style="background:#FF5F57"></span>
+          <span class="term-dot" style="background:#FFBD2E"></span>
+          <span class="term-dot" style="background:#28C840"></span>
+          <span class="term-title">{'{ coffee: code }'}</span>
+        </div>
+        <div class="term-body">
+          <p class="term-line term-prompt">$ npm run deploy:prod</p>
+          <p class="term-line term-dim">  ▸ compiling 3 routes…</p>
+          <p class="term-line term-dim">  ▸ running checks…</p>
+          <p class="term-line term-success">  ✓ deployed · 2 regions · 47ms</p>
+          <p class="term-line term-blank"> </p>
+          <p class="term-line term-comment">  // stack chosen for the problem</p>
+          <p class="term-line term-key">  const tech = {'{'}</p>
+          <p class="term-line term-obj"><span class="term-prop">api</span>: <span class="term-str">'ts + fastify'</span>,</p>
+          <p class="term-line term-obj"><span class="term-prop">db</span>: <span class="term-str">'postgres 16'</span>,</p>
+          <p class="term-line term-obj"><span class="term-prop">infra</span>: <span class="term-str">'AWS'</span>,</p>
+          <p class="term-line term-key">  {'}'}</p>
+          <p class="term-line term-cursor-line">
+            <span class="term-ps">$</span><span class="term-cursor">▊</span>
+          </p>
         </div>
       </aside>
 
@@ -82,33 +86,6 @@ import '@styles/page.css';
 </section>
 
 <style>
-  /* ─── Background glyph ──────────────────────────────── */
-  .hero {
-    position: relative;
-    overflow: hidden;
-  }
-
-  .hero-glyph {
-    position: absolute;
-    right: -4%;
-    top: 50%;
-    transform: translateY(-50%);
-    width: min(55vw, 640px);
-    height: auto;
-    color: var(--text-primary);
-    opacity: 0.08;
-    pointer-events: none;
-    user-select: none;
-  }
-
-  @media (max-width: 719px) {
-    .hero-glyph {
-      right: -8%;
-      width: min(90vw, 420px);
-      opacity: 0.06;
-    }
-  }
-
   /* ─── Wordmark (mobile only) ────────────────────────── */
   .hero-wordmark {
     display: none;
@@ -139,8 +116,125 @@ import '@styles/page.css';
     }
   }
 
-  /* ─── Stack meta row ────────────────────────────────── */
-  .hero-meta-stack .hero-meta-val {
-    font-style: italic;
+  /* ─── Terminal ──────────────────────────────────────── */
+  .hero-terminal {
+    font: 400 12.5px/1.65 var(--font-mono);
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    align-self: center;
+  }
+
+  .term-bar {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-4);
+    border-bottom: 1px solid var(--border-subtle);
+    background: var(--bg-surface);
+  }
+
+  .term-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--border-default);
+  }
+
+  .term-title {
+    font-size: 11px;
+    color: var(--text-tertiary);
+    margin-left: var(--space-2);
+    letter-spacing: 0.02em;
+  }
+
+  .term-body {
+    padding: var(--space-5) var(--space-5) var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .term-line {
+    margin: 0;
+    color: var(--text-secondary);
+    opacity: 0;
+    animation: termReveal 0.12s ease-out forwards;
+    white-space: pre;
+  }
+
+  .term-line:nth-child(1) { animation-delay: 0.25s; }
+  .term-line:nth-child(2) { animation-delay: 0.55s; }
+  .term-line:nth-child(3) { animation-delay: 0.95s; }
+  .term-line:nth-child(4) { animation-delay: 1.4s; }
+  .term-line:nth-child(5) { animation-delay: 1.65s; }
+  .term-line:nth-child(6) { animation-delay: 1.8s; }
+  .term-line:nth-child(7) { animation-delay: 2.0s; }
+  .term-line:nth-child(8) { animation-delay: 2.15s; }
+  .term-line:nth-child(9) { animation-delay: 2.3s; }
+  .term-line:nth-child(10) { animation-delay: 2.45s; }
+  .term-line:nth-child(11) { animation-delay: 2.6s; }
+  .term-cursor-line { animation-delay: 2.8s !important; }
+
+  .term-prompt { color: var(--text-primary); }
+  .term-dim    { color: var(--text-tertiary); }
+  .term-success { color: var(--code); }
+  .term-comment { color: var(--text-tertiary); font-style: italic; }
+  .term-key    { color: var(--text-secondary); }
+  .term-obj    { color: var(--text-secondary); padding-left: 2ch; }
+  .term-prop   { color: var(--code); }
+  .term-str    { color: var(--coffee); }
+  .term-blank  { min-height: 0.6em; }
+
+  .term-cursor-line {
+    display: flex;
+    align-items: baseline;
+    gap: 2px;
+    margin-top: 2px;
+  }
+
+  .term-ps {
+    color: var(--text-tertiary);
+  }
+
+  .term-cursor {
+    color: var(--coffee);
+    animation: blink 1s step-end infinite;
+    animation-delay: 2.8s;
+    opacity: 0;
+  }
+
+  @keyframes termReveal {
+    from { opacity: 0; transform: translateY(3px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0; }
+  }
+
+  /* Mobile: single column, terminal after headline */
+  @media (max-width: 719px) {
+    :global(.hero-grid) {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-terminal {
+      font-size: 11.5px;
+      overflow-x: auto;
+    }
+  }
+
+  /* Reduce motion: reveal all lines instantly, no blink */
+  @media (prefers-reduced-motion: reduce) {
+    .term-line,
+    .term-cursor {
+      opacity: 1 !important;
+      animation: none !important;
+      transform: none !important;
+    }
   }
 </style>

@@ -51,5 +51,7 @@ a { color: inherit; }
 .skip-link:focus { top: var(--space-4); }
 
 /* ─── Language visibility ───────────────────────────────────────────────────── */
+/* Content is now rendered per-route (/en/ vs /). These rules are kept as a
+   safety net for any JS-injected content that may still carry lang classes. */
 [data-lang="es"] .lang-en { display: none; }
 [data-lang="en"] .lang-es { display: none; }

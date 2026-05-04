@@ -1,6 +1,14 @@
 ---
 import '@styles/page.css';
 import SectionHead from '@components/SectionHead.astro';
+import type { Lang } from '@layouts/Base.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const isEn = lang === 'en';
 
 const bullets = [
   {
@@ -9,20 +17,26 @@ const bullets = [
   },
   {
     es: 'Trabajamos en español e inglés con la misma fluidez — la comunicación no se convierte en un factor de riesgo.',
-    en: 'We work in Spanish and English with equal fluency — communication doesn\'t become a risk factor.',
+    en: "We work in Spanish and English with equal fluency — communication doesn't become a risk factor.",
   },
   {
     es: 'Sin formularios de doce campos, sin discovery de dos semanas antes de ver una propuesta. Entendemos el problema, lo convertimos en código.',
-    en: 'No twelve-field intake forms, no two-week discovery phase before you see a proposal. We understand the problem, turn it into code.',
+    en: "No twelve-field intake forms, no two-week discovery phase before you see a proposal. We understand the problem, turn it into code.",
   },
 ];
+
+const intro = isEn
+  ? "Every system we build is designed for the real world: under load, with partial failures, maintained by teams. Precision isn't an aesthetic preference — it's the difference between a system with fault tolerance and one without."
+  : 'Cada sistema que construimos está diseñado para el mundo real: bajo carga, con fallos parciales, mantenido por equipos. La precisión no es una preferencia estética — es la diferencia entre un sistema con tolerancia a fallos y uno sin ella.';
 ---
 
 <section id="quienes-somos" class="section">
   <div class="container">
     <SectionHead
+      lang={lang}
       num="§01"
       label="Quiénes somos"
+      labelEn="About us"
       title="Software que llega a producción y se queda."
       titleEn="Software that ships to production and stays there."
       lede="Somos un estudio de ingeniería. No una agencia, no un equipo rotativo. Las mismas personas de principio a fin."
@@ -30,21 +44,37 @@ const bullets = [
     />
 
     <div class="about-grid">
-      <!-- Opening paragraph -->
-      <p class="about-intro">
-        <span class="lang-es">Cada sistema que construimos está diseñado para el mundo real: bajo carga, con fallos parciales, mantenido por equipos. La precisión no es una preferencia estética — es la diferencia entre un sistema con tolerancia a fallos y uno sin ella.</span>
-        <span class="lang-en">Every system we build is designed for the real world: under load, with partial failures, maintained by teams. Precision isn't an aesthetic preference — it's the difference between a system with fault tolerance and one without.</span>
-      </p>
+      <!-- Left column: intro + code card -->
+      <div class="about-left">
+        <p class="about-intro">{intro}</p>
+
+        <div class="about-code-card" aria-hidden="true">
+          <div class="about-code-bar">
+            <span class="about-code-dot" style="background:#FF5F57"></span>
+            <span class="about-code-dot" style="background:#FFBD2E"></span>
+            <span class="about-code-dot" style="background:#28C840"></span>
+            <span class="about-code-filename">deploy.ts</span>
+          </div>
+          <div class="about-code-body">
+            <div class="code-line"><span class="ck">// </span><span class="cc">{isEn ? 'built for the real world' : 'construido para el mundo real'}</span></div>
+            <div class="code-line"><span class="ck">export async function </span><span class="cf">deploy</span><span class="cx">(</span></div>
+            <div class="code-line code-i"><span class="cx">app: </span><span class="ct">Application</span><span class="cx">,</span></div>
+            <div class="code-line code-i"><span class="cx">env: </span><span class="ct">Environment</span><span class="cx">,</span></div>
+            <div class="code-line"><span class="cx">): </span><span class="ct">Promise</span><span class="cx">&lt;</span><span class="ct">DeployResult</span><span class="cx">&gt; {'{'}</span></div>
+            <div class="code-line code-i"><span class="ck">await </span><span class="cf">runChecks</span><span class="cx">(app)</span></div>
+            <div class="code-line code-i"><span class="ck">await </span><span class="cf">runTests</span><span class="cx">(app)</span></div>
+            <div class="code-line code-i code-line--accent"><span class="ck">return </span><span class="cf">ship</span><span class="cx">(app, env)</span></div>
+            <div class="code-line"><span class="cx">{'}'}</span></div>
+          </div>
+        </div>
+      </div>
 
       <!-- Three surface bullets -->
-      <ul class="about-bullets" aria-label="Puntos clave / Key points">
+      <ul class="about-bullets" aria-label={isEn ? 'Key points' : 'Puntos clave'}>
         {bullets.map((b) => (
           <li class="about-bullet">
             <span class="about-bullet-mark" aria-hidden="true">—</span>
-            <span class="about-bullet-text">
-              <span class="lang-es">{b.es}</span>
-              <span class="lang-en">{b.en}</span>
-            </span>
+            <span class="about-bullet-text">{isEn ? b.en : b.es}</span>
           </li>
         ))}
       </ul>
@@ -52,22 +82,93 @@ const bullets = [
   </div>
 </section>
 
+
 <style>
+  /* ─── Two-column layout on desktop ───────────────── */
   .about-grid {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-10);
-    max-width: 72ch;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--space-20);
+    align-items: start;
   }
 
+  .about-left {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+
+  /* ─── Intro (left column) ─────────────────────────── */
   .about-intro {
-    font: 400 17px/1.65 var(--font-sans);
+    font: 400 18px/1.7 var(--font-sans);
     color: var(--text-secondary);
     margin: 0;
     text-wrap: pretty;
+    padding-left: var(--space-6);
+    border-left: 2px solid var(--coffee);
   }
 
-  /* ─── Bullets ─────────────────────────────────────── */
+  /* ─── Code card ───────────────────────────────────── */
+  .about-code-card {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    font: 400 12.5px/1.7 var(--font-mono);
+  }
+
+  .about-code-bar {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-4);
+    border-bottom: 1px solid var(--border-subtle);
+    background: var(--bg-surface);
+  }
+
+  .about-code-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .about-code-filename {
+    font-size: 11px;
+    color: var(--text-tertiary);
+    margin-left: var(--space-2);
+    letter-spacing: 0.02em;
+  }
+
+  .about-code-body {
+    padding: var(--space-5);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .code-line {
+    white-space: pre;
+  }
+
+  .code-i {
+    padding-left: 2ch;
+  }
+
+  .code-line--accent {
+    background: color-mix(in oklab, var(--code) 8%, transparent);
+    border-radius: 2px;
+    margin-inline: -4px;
+    padding-inline: 4px;
+  }
+
+  /* Syntax colors */
+  .ck { color: var(--code); }        /* keywords */
+  .ct { color: var(--coffee); }      /* types */
+  .cf { color: var(--text-primary); } /* function names */
+  .cc { color: var(--text-tertiary); font-style: italic; } /* comments */
+  .cx { color: var(--text-secondary); } /* punctuation / plain */
+
+  /* ─── Bullets (right column) ──────────────────────── */
   .about-bullets {
     list-style: none;
     margin: 0;
@@ -100,5 +201,13 @@ const bullets = [
     font: 400 15px/1.65 var(--font-sans);
     color: var(--text-secondary);
     text-wrap: pretty;
+  }
+
+  /* ─── Single column on tablet/mobile ─────────────── */
+  @media (max-width: 959px) {
+    .about-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-10);
+    }
   }
 </style>

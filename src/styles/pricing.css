@@ -205,6 +205,253 @@
 }
 .service-cta { width: 100%; justify-content: center; }
 
+.service-feat-icon {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  color: var(--coffee);
+  margin-top: 1px;
+}
+
+.service-features-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2) var(--space-4);
+}
+
+@media (max-width: 480px) {
+  .service-features-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ─── Mobile tier cards (< 720px only) ───── */
+.pricing-mobile-cards {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+@media (min-width: 720px) {
+  .pricing-mobile-cards { display: none; }
+}
+
+.pmc {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  position: relative;
+}
+
+.pmc--featured {
+  border-color: color-mix(in oklab, var(--coffee) 50%, var(--border-default));
+  border-top: 2px solid var(--coffee);
+  background: color-mix(in oklab, var(--coffee) 3%, var(--bg-elevated));
+}
+
+.pmc-badge {
+  position: static;
+  display: inline-block;
+  align-self: flex-start;
+}
+
+.pmc-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.pmc-name {
+  font: 600 20px/1.2 var(--font-sans);
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.pmc-sub {
+  font: 400 12px/1.5 var(--font-mono);
+  color: var(--text-tertiary);
+  margin: 0;
+}
+
+.pmc-price-row {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px dashed var(--border-default);
+}
+
+.pmc-price {
+  font: 500 28px/1.1 var(--font-sans);
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.pmc-note {
+  font: 400 11px/1 var(--font-mono);
+  color: var(--text-tertiary);
+}
+
+.pmc-features {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  flex: 1;
+}
+
+.pmc-features li {
+  display: grid;
+  grid-template-columns: 14px 1fr;
+  gap: var(--space-3);
+  font: 400 13px/1.5 var(--font-sans);
+  color: var(--text-secondary);
+  align-items: start;
+}
+
+.pmc-features li svg {
+  color: var(--code);
+  margin-top: 2px;
+}
+
+.pmc-cta {
+  width: 100%;
+  justify-content: center;
+}
+
+/* ─── Comparison table (≥ 720px only) ────── */
+.pricing-compare-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+}
+
+@media (max-width: 719px) {
+  .pricing-compare-wrap { display: none; }
+}
+
+.pricing-compare {
+  width: 100%;
+  min-width: 560px;
+  border-collapse: collapse;
+  font: 400 14px/1.45 var(--font-sans);
+}
+
+/* Header row */
+.pricing-compare thead tr {
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border-default);
+}
+
+.pc-feature-col {
+  width: 28%;
+}
+
+.pc-tier-col {
+  width: 24%;
+}
+
+.pc-tier-head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-1);
+  padding: var(--space-5) var(--space-5) var(--space-4);
+  position: relative;
+}
+
+.pc-badge {
+  position: static;
+  display: inline-block;
+  margin-bottom: var(--space-2);
+}
+
+.pc-tier-name {
+  font: 600 17px/1.2 var(--font-sans);
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.pc-tier-price {
+  font: 500 22px/1.1 var(--font-sans);
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.pc-tier-note {
+  font: 400 11px/1 var(--font-mono);
+  color: var(--text-tertiary);
+}
+
+/* Body rows */
+.pricing-compare tbody tr {
+  border-bottom: 1px solid var(--border-subtle);
+  transition: background var(--dur-fast) var(--ease-out);
+}
+
+.pricing-compare tbody tr:hover {
+  background: color-mix(in oklab, var(--bg-elevated) 60%, transparent);
+}
+
+.pricing-compare tbody tr:last-child {
+  border-bottom: 0;
+}
+
+.pc-feature {
+  padding: var(--space-3) var(--space-5);
+  font: 400 13px/1.4 var(--font-mono);
+  color: var(--text-tertiary);
+  vertical-align: middle;
+}
+
+.pc-val {
+  padding: var(--space-3) var(--space-5);
+  color: var(--text-secondary);
+  vertical-align: middle;
+  font-size: 13px;
+}
+
+.pc-val.pc-featured {
+  background: color-mix(in oklab, var(--coffee) 3%, var(--bg-elevated));
+}
+
+thead .pc-tier-col.pc-featured-col,
+thead th:has(.pc-featured) {
+  background: color-mix(in oklab, var(--coffee) 3%, var(--bg-surface));
+  border-top: 2px solid var(--coffee);
+}
+
+.pc-check {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  color: var(--code);
+  vertical-align: middle;
+}
+
+.pc-none {
+  color: var(--border-default);
+}
+
+/* CTA row */
+.pc-cta-row td {
+  padding: var(--space-5);
+  vertical-align: middle;
+}
+
+.pc-cta-btn {
+  width: 100%;
+  justify-content: center;
+  white-space: nowrap;
+}
+
 /* ─── Responsive ──────────────────────────── */
 @media (max-width: 720px) {
   .scope-rung {

@@ -1,38 +1,31 @@
 ---
+import type { Lang } from '@layouts/Base.astro';
+
 interface Props {
+  lang: Lang;
   num: string;
   label: string;
+  labelEn?: string;
   title: string;
   titleEn?: string;
   lede?: string;
   ledeEn?: string;
 }
 
-const { num, label, title, titleEn, lede, ledeEn } = Astro.props;
+const { lang, num, label, labelEn, title, titleEn, lede, ledeEn } = Astro.props;
+const isEn = lang === 'en';
+
+const resolvedLabel = isEn && labelEn ? labelEn : label;
+const resolvedTitle = isEn && titleEn ? titleEn : title;
+const resolvedLede  = isEn && ledeEn  ? ledeEn  : lede;
 ---
 
 <div class="section-head">
   <div>
-    <p class="section-num"><strong>{num}</strong> — {label}</p>
+    <p class="section-num"><strong>{num}</strong> — {resolvedLabel}</p>
   </div>
   <div>
-    <h2 class="section-title">
-      {titleEn ? (
-        <>
-          <span class="lang-es">{title}</span>
-          <span class="lang-en">{titleEn}</span>
-        </>
-      ) : title}
-    </h2>
-    {lede && (
-      <p class="section-lede">
-        {ledeEn ? (
-          <>
-            <span class="lang-es">{lede}</span>
-            <span class="lang-en">{ledeEn}</span>
-          </>
-        ) : lede}
-      </p>
-    )}
+    <h2 class="section-title">{resolvedTitle}</h2>
+    {resolvedLede && <p class="section-lede">{resolvedLede}</p>}
   </div>
 </div>
